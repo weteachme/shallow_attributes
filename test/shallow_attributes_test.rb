@@ -87,4 +87,41 @@ describe ShallowAttributes do
       user.birthday.to_s.must_equal '2001-11-29T14:33:20+00:00'
     end
   end
+
+  describe 'with custom types' do
+    class City
+      include ShallowAttributes
+
+      attribute :name, String
+      attribute :size, Integer, default: 9000
+    end
+
+    class Address
+      include ShallowAttributes
+
+      attribute :street,  String
+      attribute :zipcode, String, default: '111111'
+      attribute :city,    City
+    end
+
+    class Person
+      include ShallowAttributes
+
+      attribute :name,    String
+      attribute :address, Address
+    end
+
+    it 'allow Embedded values' do
+      person = Person.new(address: {
+        street: 'Street 1/2', city: {
+          name: 'NYC'
+        }
+      })
+
+      person.address.zipcode.must_equal "111111"
+      person.address.street.must_equal "Street 1/2"
+      person.address.city.size.must_equal 9000
+      person.address.city.name.must_equal "NYC"
+    end
+  end
 end

@@ -84,6 +84,43 @@ page.reset_attribute(:views)  # => 0
 page.views                    # => 0
 ```
 
+## Embedded Value
+
+``` ruby
+class City
+  include ShallowAttributes
+
+  attribute :name, String
+  attribute :size, Integer, default: 9000
+end
+
+class Address
+  include ShallowAttributes
+
+  attribute :street,  String
+  attribute :zipcode, String, default: '111111'
+  attribute :city,    City
+end
+
+class User
+  include ShallowAttributes
+
+  attribute :name,    String
+  attribute :address, Address
+end
+
+user = User.new(address: {
+  street: 'Street 1/2',
+  zipcode: '12345',
+  city: {
+    name: 'NYC'
+  }
+})
+
+user.address.street # => "Street 1/2"
+user.address.city.name # => "NYC"
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/davydovanton/shallow_attributes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.

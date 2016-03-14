@@ -8,8 +8,8 @@ module ShallowAttributes
 
   module ClassMethods
     def attribute(name, type, options = {})
-      @@default_values ||= {}
-      @@default_values[name] = options[:default]
+      @default_values ||= {}
+      @default_values[name] = options[:default]
 
       module_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{name}=(value)
@@ -22,6 +22,10 @@ module ShallowAttributes
           @#{name} || default_value_for(#{name.inspect})
         end
       EOS
+    end
+
+    def default_values
+      @default_values
     end
   end
 
@@ -43,6 +47,11 @@ module ShallowAttributes
     remove_instance_variable("@#{attribute}")
   end
 
+  def coerce(values)
+    self.attributes = values
+    self
+  end
+
   private
 
   def define_attributes
@@ -52,7 +61,7 @@ module ShallowAttributes
   end
 
   def default_value_for(attribute)
-    value = ShallowAttributes::ClassMethods.class_variable_get(:@@default_values)[attribute]
+    value = self.class.default_values[attribute]
 
     case value
     when Proc

@@ -41,7 +41,7 @@ describe ShallowAttributes do
     end
   end
 
-  describe '#attributes=' do
+  describe '#attributes' do
     it 'returns attributes like hash' do
       test_object = User.new(name: 'Anton', age: 22)
       test_object.attributes.must_equal(name: 'Anton', age: 22)

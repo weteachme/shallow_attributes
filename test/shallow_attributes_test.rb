@@ -3,9 +3,17 @@ require 'test_helper'
 class User
   include ShallowAttributes
 
-  attribute :name, String
+  attribute :name, String, default: 'Ben'
+  attribute :last_name, String, default: :default_last_name
+  attribute :full_name, String, default: -> (user, attribute) { "#{user.name} #{user.last_name}" }
   attribute :age, Integer
   attribute :birthday, DateTime
+
+  attribute :friends_count, Integer, default: 0
+
+  def default_last_name
+    'Affleck'
+  end
 end
 
 describe ShallowAttributes do
@@ -14,9 +22,9 @@ describe ShallowAttributes do
   describe 'on initialize' do
     let(:user) { User.new }
 
-    it 'builds getter for attribute' do
-      user.name.must_equal nil
+    it 'builds getters for each attribute' do
       user.age.must_equal nil
+      user.birthday.must_equal nil
     end
 
     it 'builds setter for attribute' do
@@ -32,6 +40,19 @@ describe ShallowAttributes do
 
       user.name.must_equal 'Anton'
       user.age.must_equal 22
+    end
+
+    it 'sets object as default value for each attribute' do
+      user.name.must_equal 'Ben'
+      user.friends_count.must_equal 0
+    end
+
+    it 'sets method name as default value for each attribute' do
+      user.last_name.must_equal 'Affleck'
+    end
+
+    it 'sets lambda as default value for each attribute' do
+      user.full_name.must_equal 'Ben Affleck'
     end
   end
 

@@ -159,6 +159,53 @@ user = User.new(scream: 'hello world!')
 user.scream # => "HELLO WORLD!"
 ```
 
+### Collection Member Coercions
+
+``` ruby
+# Support "primitive" classes
+class Book
+  include ShallowAttributes
+
+  attribute :page_numbers, Array, of: Integer
+end
+
+book = Book.new(:page_numbers => %w[1 2 3])
+book.page_numbers # => [1, 2, 3]
+
+# Support EmbeddedValues, too!
+class Address
+  include ShallowAttributes
+
+  attribute :address,     String
+  attribute :locality,    String
+  attribute :region,      String
+  attribute :postal_code, String
+end
+
+class PhoneNumber
+  include ShallowAttributes
+
+  attribute :number, String
+end
+
+class User
+  include ShallowAttributes
+
+  attribute :phone_numbers, Array, of: PhoneNumber
+  attribute :addresses,     Array, of: Address
+end
+
+user = User.new(
+  :phone_numbers => [
+    { :number => '212-555-1212' },
+    { :number => '919-444-3265' } ],
+  :addresses => [
+    { :address => '1234 Any St.', :locality => 'Anytown', :region => "DC", :postal_code => "21234" } ])
+
+user.phone_numbers # => [#<PhoneNumber:0x007fdb2d3bef88 @number="212-555-1212">, #<PhoneNumber:0x007fdb2d3beb00 @number="919-444-3265">]
+user.addresses # => [#<Address:0x007fdb2d3be448 @address="1234 Any St.", @locality="Anytown", @region="DC", @postal_code="21234">]
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/davydovanton/shallow_attributes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.

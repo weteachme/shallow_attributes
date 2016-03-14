@@ -17,7 +17,7 @@ describe ShallowAttributes do
   describe 'with custom attribute encapsulating configuration' do
     let(:user) { User.new(scream: 'hello world!') }
 
-    it 'allow custom coercions' do
+    it 'allow custom coercion' do
       user.scream.must_equal "HELLO WORLD!"
     end
   end

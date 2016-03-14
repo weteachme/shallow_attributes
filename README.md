@@ -121,6 +121,44 @@ user.address.street # => "Street 1/2"
 user.address.city.name # => "NYC"
 ```
 
+### Custom Coercions
+
+``` ruby
+require 'json'
+
+class Json
+  def coerce(value)
+    value.is_a?(::Hash) ? value : JSON.parse(value)
+  end
+end
+
+class User
+  include ShallowAttributes
+
+  attribute :info, Json, default: {}
+end
+
+user = User.new
+user.info = '{"email":"john@domain.com"}' # => {"email"=>"john@domain.com"}
+user.info.class # => Hash
+
+# With a custom attribute encapsulating coercion-specific configuration
+class NoisyString
+  def coerce(value)
+    value.to_s.upcase
+  end
+end
+
+class User
+  include ShallowAttributes
+
+  attribute :scream, NoisyString
+end
+
+user = User.new(scream: 'hello world!')
+user.scream # => "HELLO WORLD!"
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/davydovanton/shallow_attributes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.

@@ -71,6 +71,13 @@ describe ShallowAttributes do
     end
   end
 
+  describe '#reset_attribute' do
+    it 'reserts attribute value attributes like hash' do
+      user.reset_attribute(:name)
+      user.name.must_equal 'Ben'
+    end
+  end
+
   describe 'setters' do
     let(:user) { User.new(name: 'Anton', age: '22', birthday: 'Thu Nov 29 14:33:20 GMT 2001') }
 

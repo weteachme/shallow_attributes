@@ -39,6 +39,10 @@ module ShallowAttributes
     define_attributes
   end
 
+  def reset_attribute(attribute)
+    remove_instance_variable("@#{attribute}")
+  end
+
   private
 
   def define_attributes

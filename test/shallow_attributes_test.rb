@@ -2,49 +2,61 @@ require 'test_helper'
 
 class User
   include ShallowAttributes
+
   attribute :name, String
   attribute :age, Integer
+  attribute :birthday, DateTime
 end
 
 describe ShallowAttributes do
+  let(:user) { User.new(name: 'Anton', age: 22) }
+
   describe 'on initialize' do
+    let(:user) { User.new }
+
     it 'builds getter for attribute' do
-      test_object = User.new
-      test_object.name.must_equal nil
-      test_object.age.must_equal nil
+      user.name.must_equal nil
+      user.age.must_equal nil
     end
 
     it 'builds setter for attribute' do
-      test_object = User.new
+      user.name = 'Anton'
+      user.name.must_equal 'Anton'
 
-      test_object.name = 'Anton'
-      test_object.name.must_equal 'Anton'
-
-      test_object.age = 22
-      test_object.age.must_equal 22
+      user.age = 22
+      user.age.must_equal 22
     end
 
     it 'sets attributes from hash' do
-      test_object = User.new(name: 'Anton', age: 22)
-      test_object.name.must_equal 'Anton'
-      test_object.age.must_equal 22
+      user = User.new(name: 'Anton', age: 22)
+
+      user.name.must_equal 'Anton'
+      user.age.must_equal 22
     end
   end
 
   describe '#attributes=' do
     it 'mass-assignments object attributes' do
-      test_object = User.new(name: 'Anton', age: 22)
-      test_object.attributes = { name: 'Alex' }
+      user.attributes = { name: 'Alex' }
 
-      test_object.name.must_equal 'Alex'
-      test_object.age.must_equal 22
+      user.name.must_equal 'Alex'
+      user.age.must_equal 22
     end
   end
 
   describe '#attributes' do
     it 'returns attributes like hash' do
-      test_object = User.new(name: 'Anton', age: 22)
-      test_object.attributes.must_equal(name: 'Anton', age: 22)
+      user.attributes.must_equal(name: 'Anton', age: 22)
+    end
+  end
+
+  describe 'setters' do
+    let(:user) { User.new(name: 'Anton', age: '22', birthday: 'Thu Nov 29 14:33:20 GMT 2001') }
+
+    it 'converts value to specific type' do
+      user.age.must_equal 22
+      user.birthday.must_be_instance_of DateTime
+      user.birthday.to_s.must_equal '2001-11-29T14:33:20+00:00'
     end
   end
 end

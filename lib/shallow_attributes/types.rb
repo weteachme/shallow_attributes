@@ -9,5 +9,9 @@ module ShallowAttributes
   module Types
     class InvalidValueError < TypeError
     end
+
+    def self.coerce(type, value)
+      Object.const_get("ShallowAttributes::Types::#{type}").new.coerce(value)
+    end
   end
 end

@@ -9,7 +9,12 @@ module ShallowAttributes
   module ClassMethods
     def attribute(name, type, options = {})
       attr_reader name
-      attr_writer name
+
+      module_eval <<-EOS, __FILE__, __LINE__ + 1
+        def #{name}=(value)
+          @#{name} = ShallowAttributes::Types.coerce(#{type}, value)
+        end
+      EOS
     end
   end
 
@@ -31,7 +36,7 @@ module ShallowAttributes
 
   def define_attributes
     @attributes.each do |name, value|
-      self.instance_variable_set("@#{name}", value)
+      self.send("#{name}=", value)
     end
   end
 end

@@ -102,7 +102,7 @@ module ShallowAttributes
     #
     # @private
     #
-    # @param [Hash] attributes the new attributes for current object
+    # @param [Hash] values the new attributes for current object
     #
     # @example Use embedded values
     #   class User

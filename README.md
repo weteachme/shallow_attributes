@@ -1,5 +1,15 @@
 # ShallowAttributes
 
+Simple and lightweight Virtus analog.
+
+## Motivation
+
+There are already a lot of good and flexible gems which solve a similar problem, allowing attributes to be
+defined with their types, for example: virtus, fast_attributes or attrio. However, the disadvantage of these
+gems is performance or API. So, the goal of ShallowAttributes is to provide a simple solution which is similar
+to the Virtus API, simple, fast, understandable and extendable.
+
+This is [the performance benchmark](https://gist.github.com/davydovanton/7cf0da532eae71381cbd) of ShallowAttributes compared to virtus gems.
 
 ## Installation
 
@@ -265,10 +275,19 @@ user.scream = 'hello world!'
 user.changed? # => true
 ```
 
+## Ruby version support
+
+ShallowAttributes is known to work correctly with the following rubies:
+
+* 2.3+
+
+In future I want ot support other ruby sersion/platforms.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/davydovanton/shallow_attributes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/davydovanton/shallow_attributes.
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected
+to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License

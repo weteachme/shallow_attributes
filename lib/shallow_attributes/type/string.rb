@@ -20,7 +20,7 @@ module ShallowAttributes
       #
       # @since 0.1.0
       def coerce(value)
-        String(value)
+        value.to_s
       end
     end
   end

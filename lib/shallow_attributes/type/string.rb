@@ -1,5 +1,5 @@
 module ShallowAttributes
-  module Types
+  module Type
     class String
       def coerce(value)
         String(value)

@@ -1,7 +1,7 @@
 require 'test_helper'
 
-describe ShallowAttributes::Types::String do
-  let(:type) { ShallowAttributes::Types::String.new }
+describe ShallowAttributes::Type::String do
+  let(:type) { ShallowAttributes::Type::String.new }
 
   describe '#coerce' do
     describe 'when value is String' do

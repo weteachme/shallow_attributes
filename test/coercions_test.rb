@@ -9,7 +9,8 @@ end
 class User
   include ShallowAttributes
 
-  attribute :scream, NoisyString
+  attribute :scream,  NoisyString
+  attribute :screams, Array, of: NoisyString
 end
 
 
@@ -19,6 +20,11 @@ describe ShallowAttributes do
 
     it 'allow custom coercion' do
       user.scream.must_equal "HELLO WORLD!"
+    end
+
+    it 'allow array of custom coercion' do
+      user.screams = %w[hello world!]
+      user.screams.must_equal %w[HELLO WORLD!]
     end
   end
 end

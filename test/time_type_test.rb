@@ -1,7 +1,7 @@
 require 'test_helper'
 
-describe ShallowAttributes::Types::Time do
-  let(:type) { ShallowAttributes::Types::Time.new }
+describe ShallowAttributes::Type::Time do
+  let(:type) { ShallowAttributes::Type::Time.new }
 
   describe '#coerce' do
     describe 'when value is String' do
@@ -18,19 +18,19 @@ describe ShallowAttributes::Types::Time do
 
     describe 'when value is Nil' do
       it 'returns InvalidValueError' do
-        -> { type.coerce(nil) }.must_raise ShallowAttributes::Types::InvalidValueError
+        -> { type.coerce(nil) }.must_raise ShallowAttributes::Type::InvalidValueError
       end
     end
 
     describe 'when value is TrueClass' do
       it 'returns InvalidValueError' do
-        -> { type.coerce(true) }.must_raise ShallowAttributes::Types::InvalidValueError
+        -> { type.coerce(true) }.must_raise ShallowAttributes::Type::InvalidValueError
       end
     end
 
     describe 'when value is FalseClass' do
       it 'returns InvalidValueError' do
-        -> { type.coerce(false) }.must_raise ShallowAttributes::Types::InvalidValueError
+        -> { type.coerce(false) }.must_raise ShallowAttributes::Type::InvalidValueError
       end
     end
   end

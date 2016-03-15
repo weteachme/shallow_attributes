@@ -1,5 +1,5 @@
 module ShallowAttributes
-  module Types
+  module Type
     class Integer
       def coerce(value)
         case value

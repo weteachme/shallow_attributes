@@ -1,4 +1,4 @@
 require 'test_helper'
 
-describe ShallowAttributes::Types do
+describe ShallowAttributes::Type do
 end

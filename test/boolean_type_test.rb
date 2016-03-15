@@ -1,13 +1,13 @@
 require 'test_helper'
 
-describe ShallowAttributes::Types::Boolean do
-  let(:type) { ShallowAttributes::Types::Boolean.new }
+describe ShallowAttributes::Type::Boolean do
+  let(:type) { ShallowAttributes::Type::Boolean.new }
 
   describe '#coerce' do
     describe 'when value is String' do
       it 'returns InvalidValueError' do
-        -> { type.coerce('test') }.must_raise ShallowAttributes::Types::InvalidValueError
-        -> { type.coerce('') }.must_raise ShallowAttributes::Types::InvalidValueError
+        -> { type.coerce('test') }.must_raise ShallowAttributes::Type::InvalidValueError
+        -> { type.coerce('') }.must_raise ShallowAttributes::Type::InvalidValueError
       end
     end
 

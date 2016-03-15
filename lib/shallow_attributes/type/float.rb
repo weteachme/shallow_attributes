@@ -1,5 +1,5 @@
 module ShallowAttributes
-  module Types
+  module Type
     class Float
       def coerce(value)
         case value

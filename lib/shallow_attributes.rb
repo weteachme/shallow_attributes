@@ -46,7 +46,12 @@ module ShallowAttributes
   end
 
   def attributes
-    @attributes
+    hash = {}
+    @attributes.map do |key, value|
+      hash[key] =
+        value.is_a?(Array) ? value.map(&:attributes) : value
+    end
+    hash
   end
 
   def attributes=(attributes)

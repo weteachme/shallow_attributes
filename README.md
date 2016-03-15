@@ -204,6 +204,14 @@ user = User.new(
 
 user.phone_numbers # => [#<PhoneNumber:0x007fdb2d3bef88 @number="212-555-1212">, #<PhoneNumber:0x007fdb2d3beb00 @number="919-444-3265">]
 user.addresses # => [#<Address:0x007fdb2d3be448 @address="1234 Any St.", @locality="Anytown", @region="DC", @postal_code="21234">]
+
+user.attributes # => {
+                # =>   :phone_numbers => [
+                # =>     { :number => '212-555-1212' },
+                # =>     { :number => '919-444-3265' } ],
+                # =>   :addresses => [
+                # =>     { :address => '1234 Any St.', :locality => 'Anytown', :region => "DC", :postal_code => "21234" } ]
+                # => }
 ```
 
 ## Contributing

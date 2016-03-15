@@ -38,29 +38,42 @@ describe ShallowAttributes do
       person.address.city.name.must_equal "NYC"
     end
 
-    it 'allow array of embedded values' do
-      person = Person.new(addresses: [
-        {
-          street: 'Street 1/2',
-          city: {
-            name: 'NYC'
-          }
-        },
-        {
-          street: 'Street 3/2',
-          city: {
-            name: 'Moscow'
-          }
-        }
-      ])
+    describe 'when one of attribute is array' do
+      let(:person) do
+        Person.new(
+          addresses: [
+            {
+              street: 'Street 1/2',
+              city: {
+                name: 'NYC'
+              }
+            },
+            {
+              street: 'Street 3/2',
+              city: {
+                name: 'Moscow'
+              }
+            }
+          ]
+        )
+      end
 
-      person.addresses.count.must_equal 2
+      it 'allow embedded values' do
+        person.addresses.count.must_equal 2
 
-      person.addresses[0].street.must_equal "Street 1/2"
-      person.addresses[0].city.name.must_equal "NYC"
+        person.addresses[0].street.must_equal "Street 1/2"
+        person.addresses[0].city.name.must_equal "NYC"
 
-      person.addresses[1].street.must_equal "Street 3/2"
-      person.addresses[1].city.name.must_equal "Moscow"
+        person.addresses[1].street.must_equal "Street 3/2"
+        person.addresses[1].city.name.must_equal "Moscow"
+      end
+
+      describe '#attributes' do
+        it 'returns attributes hash' do
+          hash = person.attributes
+          hash.must_equal({ addresses: [{ street: 'Street 1/2', city: { name: 'NYC' } }, { street: 'Street 3/2', city: { name: 'Moscow' } }] })
+        end
+      end
     end
   end
 end

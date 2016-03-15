@@ -9,7 +9,7 @@ module ShallowAttributes
       hash = {}
       @attributes.map do |key, value|
         hash[key] =
-          value.is_a?(Array) ? value.map(&call_attributes) : call_attributes.call(value)
+          value.is_a?(Array) ? value.map(&to_h_proc) : to_h_proc.call(value)
       end
       hash
     end
@@ -36,18 +36,12 @@ module ShallowAttributes
 
   private
 
-    def call_attributes
-      -> (value) { value.respond_to?(:to_h) ? value.to_h : value }
-    end
-
     def define_attributes
       @attributes.each do |name, value|
-        self.send("#{name}=", value)
+        send("#{name}=", value)
       end
 
-      if self.class.include? ActiveModel::Dirty
-        self.send(:clear_changes_information)
-      end
+      send(:clear_changes_information) if include_dirty?
     end
 
     def default_value_for(attribute)
@@ -61,6 +55,14 @@ module ShallowAttributes
       else
         value
       end
+    end
+
+    def to_h_proc
+      -> (value) { value.respond_to?(:to_h) ? value.to_h : value }
+    end
+
+    def include_dirty?
+      defined?(::ActiveModel::Dirty) && self.class.include?(::ActiveModel::Dirty)
     end
   end
 end

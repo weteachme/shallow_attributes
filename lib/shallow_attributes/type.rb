@@ -13,15 +13,15 @@ module ShallowAttributes
 
     def self.coerce(type, value, options = {})
       if type == ::Array
-        type_instance(type).coerce(value, options[:of])
+        instance_for(type).coerce(value, options[:of])
       else
-        type_instance(type).coerce(value)
+        instance_for(type).coerce(value)
       end
     end
 
   private
 
-    def self.type_instance(type)
+    def self.instance_for(type)
       Object.const_get("ShallowAttributes::Type::#{type}").new
     end
   end

@@ -13,6 +13,8 @@ module ShallowAttributes
       end
       hash
     end
+    alias_method :to_h, :attributes
+    alias_method :to_hash, :attributes
 
     def attributes=(attributes)
       @attributes.merge!(attributes)
@@ -28,10 +30,14 @@ module ShallowAttributes
       self
     end
 
+    def ==(object)
+      self.to_h == object.to_h
+    end
+
   private
 
     def call_attributes
-      -> (value) { value.respond_to?(:attributes) ? value.attributes : value }
+      -> (value) { value.respond_to?(:to_h) ? value.to_h : value }
     end
 
     def define_attributes

@@ -94,6 +94,20 @@ describe ShallowAttributes do
     end
   end
 
+  describe '#==' do
+    it 'returns true if objects are equal' do
+      user1 = User.new
+      user2 = User.new
+      user1.must_equal user2
+    end
+
+    it 'returns false if objects are not equal' do
+      user1 = User.new(name: 'Anton')
+      user2 = User.new(name: 'Jon')
+      user1.wont_equal user2
+    end
+  end
+
   describe 'setters' do
     let(:user) { User.new(name: 'Anton', age: '22', birthday: 'Thu Nov 29 14:33:20 GMT 2001') }
 

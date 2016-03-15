@@ -94,6 +94,7 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def reset_attribute(attribute)
+      changed_attributes.delete(attribute.to_s) if dirty_load?
       remove_instance_variable("@#{attribute}")
     end
 
@@ -161,7 +162,7 @@ module ShallowAttributes
         send("#{name}=", value)
       end
 
-      send(:clear_changes_information) if include_dirty?
+      send(:clear_changes_information) if dirty_load?
     end
 
     # Retrns default value for specific attribute. Defaul values hash
@@ -211,7 +212,7 @@ module ShallowAttributes
     # @return [boolean]
     #
     # @since 0.1.0
-    def include_dirty?
+    def dirty_load?
       defined?(::ActiveModel::Dirty) && self.class.include?(::ActiveModel::Dirty)
     end
   end

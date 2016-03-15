@@ -18,6 +18,17 @@ describe ShallowAttributes do
       user.changed?.must_equal true
     end
 
+    describe '#reset_attribute' do
+      it 'resets attribut changes' do
+        user.scream = 'hello world!'
+        user.changed?.must_equal true
+
+        user.reset_attribute(:scream)
+        user.scream_changed?.must_equal false
+      end
+    end
+
+
     it 'have changes method' do
       user.scream = 'hello world!'
       user.changes.must_equal('scream' => ['', 'hello world!'])

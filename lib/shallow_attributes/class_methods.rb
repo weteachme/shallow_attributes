@@ -66,7 +66,7 @@ module ShallowAttributes
           @attributes[:#{name}] =
             ShallowAttributes::Type.coerce(#{type}, value, #{options})
 
-          if include_dirty?
+          if dirty_load?
             #{name}_will_change! unless @#{name} == @attributes[:#{name}]
           end
 

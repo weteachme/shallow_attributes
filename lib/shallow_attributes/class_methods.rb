@@ -20,6 +20,11 @@ module ShallowAttributes
       module_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{name}=(value)
           @attributes[:#{name}] = ShallowAttributes::Type.coerce(#{type}, value, #{options})
+
+          if self.class.include? ActiveModel::Dirty
+            #{name}_will_change! unless @#{name} == @attributes[:#{name}]
+          end
+
           @#{name} = @attributes[:#{name}]
         end
       EOS
@@ -27,6 +32,10 @@ module ShallowAttributes
 
     def initialie_getter(name)
       module_eval <<-EOS, __FILE__, __LINE__ + 1
+        if include? ActiveModel::Dirty
+          define_attribute_method :#{name}
+        end
+
         def #{name}
           @#{name} || default_value_for(#{name.inspect})
         end

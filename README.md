@@ -218,7 +218,7 @@ user.attributes # => {
 
 ``` ruby
 class User
-  include Virtus.model
+  include ShallowAttributes
 
   attribute :name, String
 
@@ -239,6 +239,32 @@ user.name # => 'Frank'
 user = User.new(name: "Godzilla")
 user.name # => 'Can't tell'
 ```
+
+### ActiveModel validation and dirty
+
+``` ruby
+require 'active_model'
+
+class Children
+  include ShallowAttributes
+  include ActiveModel::Dirty
+  include ActiveModel::Validations
+
+  attribute :scream, String
+  validates :scream, presence: true
+end
+
+user = User.new(scream: '')
+user.valid? # => false
+user.scream = 'hello world!'
+user.valid? # => true
+
+user = User.new(scream: '')
+user.changed? # => false
+user.scream = 'hello world!'
+user.changed? # => true
+```
+
 
 ## Contributing
 

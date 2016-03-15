@@ -38,6 +38,10 @@ module ShallowAttributes
       @attributes.each do |name, value|
         self.send("#{name}=", value)
       end
+
+      if self.class.include? ActiveModel::Dirty
+        self.send(:clear_changes_information)
+      end
     end
 
     def default_value_for(attribute)

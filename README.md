@@ -214,6 +214,32 @@ user.attributes # => {
                 # => }
 ```
 
+### Overriding setters
+
+``` ruby
+class User
+  include Virtus.model
+
+  attribute :name, String
+
+  alias_method :_name=, :name=
+  def name=(new_name)
+    custom_name = nil
+    if new_name == "Godzilla"
+      custom_name = "Can't tell"
+    end
+
+    self._name = custom_name || new_name
+  end
+end
+
+user = User.new(name: "Frank")
+user.name # => 'Frank'
+
+user = User.new(name: "Godzilla")
+user.name # => 'Can't tell'
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/davydovanton/shallow_attributes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.

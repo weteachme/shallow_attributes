@@ -26,7 +26,8 @@ module ShallowAttributes
     def initialie_setter(name, type, options)
       module_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{name}=(value)
-          @#{name} = ShallowAttributes::Types.coerce(#{type}, value, #{options})
+          @attributes[:#{name}] = ShallowAttributes::Types.coerce(#{type}, value, #{options})
+          @#{name} = @attributes[:#{name}]
         end
       EOS
     end
@@ -49,7 +50,7 @@ module ShallowAttributes
     hash = {}
     @attributes.map do |key, value|
       hash[key] =
-        value.is_a?(Array) ? value.map(&:attributes) : value
+        value.is_a?(Array) ? value.map(&call_attributes) : call_attributes.call(value)
     end
     hash
   end
@@ -69,6 +70,10 @@ module ShallowAttributes
   end
 
   private
+
+  def call_attributes
+    -> (value) { value.respond_to?(:attributes) ? value.attributes : value }
+  end
 
   def define_attributes
     @attributes.each do |name, value|

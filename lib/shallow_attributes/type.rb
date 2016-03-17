@@ -65,7 +65,7 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def self.instance_for(type)
-      Object.const_get("ShallowAttributes::Type::#{type}").new
+      ShallowAttributes::Type.const_get(type.to_s).new
     end
   end
 end

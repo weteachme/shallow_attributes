@@ -22,7 +22,8 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def initialize(attributes = {})
-      @attributes = attributes
+      attributes_list = self.class.attributes
+      @attributes = attributes.delete_if { |key, _| !attributes_list.include?(key) }
       define_attributes
     end
 

@@ -13,7 +13,31 @@ module ShallowAttributes
     # @return [Hash] hash with default values
     #
     # @since 0.1.0
-    attr_reader :default_values
+    def default_values
+      superclass.default_values.merge(@default_values)
+    rescue NoMethodError
+      @default_values
+    end
+
+    # Returns all class attributes.
+    #
+    #
+    # @example Create new User instance
+    #   class User
+    #     include ShallowAttributes
+    #     attribute :name, String
+    #     attribute :last_name, String
+    #     attribute :age, Integer
+    #   end
+    #
+    #   User.attributes # => [:name, :last_name, :age]
+    #
+    # @return [Hash]
+    #
+    # @since 0.1.0
+    def attributes
+      default_values.keys
+    end
 
     # Define attribute with specific type and default value
     # for current class.

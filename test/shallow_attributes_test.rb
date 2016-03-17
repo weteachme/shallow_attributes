@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class User
+class MainUser
   include ShallowAttributes
 
   attribute :name, String, default: 'Ben'
@@ -18,10 +18,16 @@ class User
 end
 
 describe ShallowAttributes do
-  let(:user) { User.new(name: 'Anton', age: 22) }
+  let(:user) { MainUser.new(name: 'Anton', age: 22) }
+
+  describe '::attributes' do
+    it 'returns class attributes array' do
+      MainUser.attributes.must_equal(%i(name last_name full_name age birthday friends_count sizes))
+    end
+  end
 
   describe 'on initialize' do
-    let(:user) { User.new }
+    let(:user) { MainUser.new }
 
     it 'builds getters for each attribute' do
       user.age.must_equal nil
@@ -38,7 +44,7 @@ describe ShallowAttributes do
     end
 
     it 'sets attributes from hash' do
-      user = User.new(name: 'Anton', age: 22)
+      user = MainUser.new(name: 'Anton', age: 22)
 
       user.name.must_equal 'Anton'
       user.age.must_equal 22
@@ -59,12 +65,12 @@ describe ShallowAttributes do
 
     describe 'with array type' do
       it 'initializes array of objects' do
-        user = User.new(sizes: %w[1 2 3])
+        user = MainUser.new(sizes: %w[1 2 3])
         user.sizes.must_equal [1, 2, 3]
       end
 
       it 'builds setter for array attribute' do
-        user = User.new
+        user = MainUser.new
         user.sizes = %w[1 2 3]
 
         user.sizes.must_equal [1, 2, 3]
@@ -96,20 +102,20 @@ describe ShallowAttributes do
 
   describe '#==' do
     it 'returns true if objects are equal' do
-      user1 = User.new
-      user2 = User.new
+      user1 = MainUser.new
+      user2 = MainUser.new
       user1.must_equal user2
     end
 
     it 'returns false if objects are not equal' do
-      user1 = User.new(name: 'Anton')
-      user2 = User.new(name: 'Jon')
+      user1 = MainUser.new(name: 'Anton')
+      user2 = MainUser.new(name: 'Jon')
       user1.wont_equal user2
     end
   end
 
   describe 'setters' do
-    let(:user) { User.new(name: 'Anton', age: '22', birthday: 'Thu Nov 29 14:33:20 GMT 2001') }
+    let(:user) { MainUser.new(name: 'Anton', age: '22', birthday: 'Thu Nov 29 14:33:20 GMT 2001') }
 
     it 'converts value to specific type' do
       user.age.must_equal 22

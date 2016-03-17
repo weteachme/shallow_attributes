@@ -137,7 +137,7 @@ user.address.city.name # => "NYC"
 require 'json'
 
 class Json
-  def coerce(value)
+  def coerce(value, options = {})
     value.is_a?(::Hash) ? value : JSON.parse(value)
   end
 end
@@ -154,7 +154,7 @@ user.info.class # => Hash
 
 # With a custom attribute encapsulating coercion-specific configuration
 class NoisyString
-  def coerce(value)
+  def coerce(value, options = {})
     value.to_s.upcase
   end
 end

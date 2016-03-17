@@ -11,15 +11,16 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
+      # @param [Hash] object
       #
       # @example Convert intger to string value
-      #   ShallowAttributes::Type::String.new.coerce(2001)
+      #   ShallowAttributes::Type::String.coerce(2001)
       #     # => '2001'
       #
       # @return [Sting]
       #
       # @since 0.1.0
-      def coerce(value)
+      def coerce(value, options = {})
         value.to_s
       end
     end

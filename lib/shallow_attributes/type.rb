@@ -24,7 +24,7 @@ module ShallowAttributes
     # @param [Class] type the type class object
     # @param [Object] value the value that should be submit to the necessary type
     # @param [Hash] options the options to create a message with.
-    # @option opts [String] :of The type of array
+    # @option options [String] :of The type of array
     #
     # @example Convert integer to sting type
     #   ShallowAttributes::Type.coerce(String, 1)
@@ -38,16 +38,12 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def self.coerce(type, value, options = {})
-      if type == ::Array
-        instance_for(type).coerce(value, options[:of])
-      else
-        instance_for(type).coerce(value)
-      end
+      type_instance(type).coerce(value, options)
     end
 
   private
 
-    # Returns instans object for specific Type class
+    # Returns class object for specific Type class
     #
     # @private
     #
@@ -55,16 +51,16 @@ module ShallowAttributes
     #
     # @example Returns Sting type class
     #   ShallowAttributes::Type.instance_for(String)
-    #     # => ShallowAttributes::Type::Sting instance
+    #     # => ShallowAttributes::Type::Sting class
     #
     # @example Returns other type class
     #   ShallowAttributes::Type.instance_for(MySpecialStringType)
-    #     # => MySpecialStringType instance
+    #     # => MySpecialStringType class
     #
-    # @return the type object
+    # @return [Class]
     #
     # @since 0.1.0
-    def self.instance_for(type)
+    def self.type_instance(type)
       ShallowAttributes::Type.const_get(type.to_s).new
     end
   end

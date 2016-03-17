@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class NoisyString
-  def coerce(value)
+  def coerce(value, options = {})
     value.to_s.upcase
   end
 end

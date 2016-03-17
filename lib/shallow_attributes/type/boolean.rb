@@ -25,12 +25,13 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
+      # @param [Hash] object
       #
       # @example Convert integer to boolean value
-      #   ShallowAttributes::Type::Boolean.new.coerce(1)
+      #   ShallowAttributes::Type::Boolean.coerce(1)
       #     # => true
       #
-      #   ShallowAttributes::Type::Boolean.new.coerce(0)
+      #   ShallowAttributes::Type::Boolean.coerce(0)
       #     # => false
       #
       # @raise [InvalidValueError] if values is not included in true and false arrays
@@ -38,7 +39,7 @@ module ShallowAttributes
       # @return [boolean]
       #
       # @since 0.1.0
-      def coerce(value)
+      def coerce(value, options = {})
         if TRUE_VALUES.include?(value)
           true
         elsif FALSE_VALUES.include?(value)

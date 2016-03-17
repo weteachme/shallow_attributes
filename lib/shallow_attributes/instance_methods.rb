@@ -104,6 +104,7 @@ module ShallowAttributes
     # @private
     #
     # @param [Hash] values the new attributes for current object
+    # @param [Hash] options
     #
     # @example Use embedded values
     #   class User
@@ -122,8 +123,8 @@ module ShallowAttributes
     # @return the object
     #
     # @since 0.1.0
-    def coerce(values)
-      self.attributes = values
+    def coerce(value, options = {})
+      self.attributes = value
       self
     end
 
@@ -214,7 +215,8 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def dirty_load?
-      defined?(::ActiveModel::Dirty) && self.class.include?(::ActiveModel::Dirty)
+      @dirty_load ||=
+        defined?(::ActiveModel::Dirty) && self.class.include?(::ActiveModel::Dirty)
     end
   end
 end

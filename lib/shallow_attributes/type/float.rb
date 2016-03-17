@@ -11,15 +11,16 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
+      # @param [Hash] object
       #
       # @example Convert string to float value
-      #   ShallowAttributes::Type::Float.new.coerce('2001')
+      #   ShallowAttributes::Type::Float.coerce('2001')
       #     # => 2001.0
       #
       # @return [Float]
       #
       # @since 0.1.0
-      def coerce(value)
+      def coerce(value, options = {})
         case value
         when nil then 0.0
         when ::TrueClass then 1.0

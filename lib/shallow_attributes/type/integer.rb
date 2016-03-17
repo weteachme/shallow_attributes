@@ -11,15 +11,16 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
+      # @param [Hash] object
       #
       # @example Convert sting to integer value
-      #   ShallowAttributes::Type::Integer.new.coerce('2001')
+      #   ShallowAttributes::Type::Integer.coerce('2001')
       #     # => 2001
       #
       # @return [Integer]
       #
       # @since 0.1.0
-      def coerce(value)
+      def coerce(value, options = {})
         case value
         when nil then 0
         when ::TrueClass then 1

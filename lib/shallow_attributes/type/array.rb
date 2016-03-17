@@ -11,10 +11,11 @@ module ShallowAttributes
       # @private
       #
       # @param [Array] values
-      # @param [Class] element_class the type of array element class
+      # @param [Hash] options
+      # @option options [String] :of the type of array element class
       #
       # @example Convert integer array to string array
-      #   ShallowAttributes::Type::Array.new.coerce([1, 2], String)
+      #   ShallowAttributes::Type::Array.coerce([1, 2], String)
       #     # => ['1', '2']
       #
       # @raise [InvalidValueError] if values is not Array
@@ -22,12 +23,12 @@ module ShallowAttributes
       # @return [Array]
       #
       # @since 0.1.0
-      def coerce(values, element_class)
+      def coerce(values, options = {})
         unless values.is_a? ::Array
           raise ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{values}" for type "Array")
         end
 
-        values.map! { |value| ShallowAttributes::Type.coerce(element_class, value) }
+        values.map! { |value| ShallowAttributes::Type.coerce(options[:of], value) }
       end
     end
   end

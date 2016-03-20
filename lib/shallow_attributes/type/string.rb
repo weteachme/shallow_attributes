@@ -23,7 +23,7 @@ module ShallowAttributes
       def coerce(value, options = {})
         case value
         when ::Array then value.join
-        when ::Hash then error(value)
+        when ::Hash, ::Class then error(value)
         else
           value.to_s
         end

@@ -61,6 +61,8 @@ describe ShallowAttributes::Type::Time do
         -> { type.coerce([]) }.must_raise ShallowAttributes::Type::InvalidValueError
         -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
         -> { type.coerce(:'1') }.must_raise ShallowAttributes::Type::InvalidValueError
+        -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
+        -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
       end
     end
   end

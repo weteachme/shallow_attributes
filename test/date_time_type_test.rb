@@ -57,9 +57,12 @@ describe ShallowAttributes::Type::DateTime do
 
     describe 'when value is not allowed' do
       it 'returns error' do
+        -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
         -> { type.coerce([]) }.must_raise ShallowAttributes::Type::InvalidValueError
         -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
         -> { type.coerce(:'1') }.must_raise ShallowAttributes::Type::InvalidValueError
+        -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
+        -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
       end
     end
   end

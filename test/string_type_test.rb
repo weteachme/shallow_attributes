@@ -54,5 +54,23 @@ describe ShallowAttributes::Type::String do
         -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
       end
     end
+
+    describe 'when value is Class' do
+      it 'returns error' do
+        -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
+      end
+    end
+
+    describe 'when value is custom object with #to_s' do
+      class Test
+        def to_s
+          'hello'
+        end
+      end
+
+      it 'returns error' do
+        type.coerce(Test.new).must_equal 'hello'
+      end
+    end
   end
 end

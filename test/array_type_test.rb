@@ -10,6 +10,8 @@ describe ShallowAttributes::Type::Array do
         -> { type.coerce(123, of: Integer) }.must_raise ShallowAttributes::Type::InvalidValueError
         -> { type.coerce(true, of: Integer) }.must_raise ShallowAttributes::Type::InvalidValueError
         -> { type.coerce({a: :b}, of: Integer) }.must_raise ShallowAttributes::Type::InvalidValueError
+        -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
+        -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
       end
     end
 

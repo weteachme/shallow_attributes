@@ -3,7 +3,8 @@ require 'test_helper'
 class Admin
   include ShallowAttributes
 
-  attribute :name, String
+  attribute :name,   String
+  attribute :admin, Boolean
 
   alias_method :_name=, :name=
   def name=(new_name)

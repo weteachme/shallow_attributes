@@ -32,7 +32,7 @@ describe ShallowAttributes do
   describe 'with inheritance class' do
     let(:params) { { name: 'Anton', role: 'moderator', last_name: 'New', rates: [1, 2, 3] } }
     let(:moderator) { Moderator.new(params) }
-    let(:admin){ Admin.new(params) }
+    let(:admin) { Admin.new(params) }
 
     describe 'for moderator object' do
       it 'returns name attribute correct' do

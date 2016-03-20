@@ -21,4 +21,11 @@ module ShallowAttributes
   def self.included(base)
     base.extend(ClassMethods)
   end
+
+  # Boolean class for working with bool values
+  #
+  # @private
+  #
+  # @since 0.1.0
+  class Boolean; end
 end

@@ -104,7 +104,7 @@ module ShallowAttributes
     # @since 0.1.0
     def reset_attribute(attribute)
       changed_attributes.delete(attribute.to_s) if dirty_load?
-      remove_instance_variable("@#{attribute}")
+      instance_variable_set("@#{attribute}", default_value_for(attribute))
     end
 
     # Sets new values and returns self. Needs for embedded value.

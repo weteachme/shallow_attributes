@@ -12,6 +12,8 @@ class MainUser
   attribute :friends_count, Integer, default: 0
   attribute :sizes, Array, of: Integer
 
+  attribute :admin, Boolean, default: false
+
   def default_last_name
     'Affleck'
   end
@@ -22,7 +24,7 @@ describe ShallowAttributes do
 
   describe '::attributes' do
     it 'returns class attributes array' do
-      MainUser.attributes.must_equal(%i(name last_name full_name age birthday friends_count sizes))
+      MainUser.attributes.must_equal(%i(name last_name full_name age birthday friends_count sizes admin))
     end
   end
 
@@ -53,6 +55,7 @@ describe ShallowAttributes do
     it 'sets object as default value for each attribute' do
       user.name.must_equal 'Ben'
       user.friends_count.must_equal 0
+      user.admin.must_equal false
     end
 
     it 'sets method name as default value for each attribute' do

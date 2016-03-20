@@ -6,6 +6,14 @@ module ShallowAttributes
   #
   # @since 0.1.0
   module InstanceMethods
+    # Lambda object for gettring attributes hash for specific
+    # value object.
+    #
+    # @private
+    #
+    # @since 0.1.0
+    TO_H_PROC = -> (value) { value.respond_to?(:to_h) ? value.to_h : value }
+
     # Initialize instance object with specific attributes
     #
     # @param [Hash] attributes the attributes contained in the class
@@ -45,7 +53,7 @@ module ShallowAttributes
       hash = {}
       @attributes.map do |key, value|
         hash[key] =
-          value.is_a?(Array) ? value.map(&to_h_proc) : to_h_proc.call(value)
+          value.is_a?(Array) ? value.map!(&TO_H_PROC) : TO_H_PROC.call(value)
       end
       hash
     end
@@ -187,23 +195,6 @@ module ShallowAttributes
       else
         value
       end
-    end
-
-    # Retrns lambda object for gettring attributes hash for specific
-    # value object.
-    #
-    # @private
-    #
-    # @return [proc]
-    #
-    # for block {|value| ... }
-    #
-    # @yieldparam [value] value the value object
-    # @yieldreturn [Hash] attributes hash for specific value object
-    #
-    # @since 0.1.0
-    def to_h_proc
-      -> (value) { value.respond_to?(:to_h) ? value.to_h : value }
     end
 
     # Returns true in ActiveModel::Dirty defined and included to

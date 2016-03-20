@@ -185,7 +185,7 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def default_value_for(attribute)
-      value = self.class.default_values[attribute]
+      value = default_values[attribute]
 
       case value
       when Proc
@@ -208,6 +208,17 @@ module ShallowAttributes
     def dirty_load?
       @dirty_load ||=
         defined?(::ActiveModel::Dirty) && self.class.include?(::ActiveModel::Dirty)
+    end
+
+    # Returns hash of default class values
+    #
+    # @private
+    #
+    # @return [Hash]
+    #
+    # @since 0.1.0
+    def default_values
+      @default_values ||= self.class.default_values
     end
   end
 end

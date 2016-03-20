@@ -11,14 +11,14 @@ module ShallowAttributes
       # @private
       #
       # @since 0.1.0
-      TRUE_VALUES  = [true, 1, '1', 't', 'T', 'true', 'TRUE', 'on', 'ON']
+      TRUE_VALUES  = [true, 1, '1', 't', 'T', 'true', 'TRUE', 'on', 'ON'].freeze
 
       # Array of false values
       #
       # @private
       #
       # @since 0.1.0
-      FALSE_VALUES = [false, 0, '0', 'f', 'F', 'false', 'FALSE', 'off', 'OFF', nil]
+      FALSE_VALUES = [false, 0, '0', 'f', 'F', 'false', 'FALSE', 'off', 'OFF', nil].freeze
 
       # Convert value to Boolean type
       #

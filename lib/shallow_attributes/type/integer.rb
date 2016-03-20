@@ -17,6 +17,8 @@ module ShallowAttributes
       #   ShallowAttributes::Type::Integer.coerce('2001')
       #     # => 2001
       #
+      # @raise [InvalidValueError] if values is invalid
+      #
       # @return [Integer]
       #
       # @since 0.1.0
@@ -28,6 +30,8 @@ module ShallowAttributes
         else
           value.to_i
         end
+      rescue
+        raise ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{value}" for type "Integer")
       end
     end
   end

@@ -21,7 +21,18 @@ module ShallowAttributes
       #
       # @since 0.1.0
       def coerce(value, options = {})
-        value.to_s
+        case value
+        when ::Array then value.join
+        when ::Hash then error(value)
+        else
+          value.to_s
+        end
+      end
+
+    private
+
+      def error(value)
+        raise ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{value}" for type "String")
       end
     end
   end

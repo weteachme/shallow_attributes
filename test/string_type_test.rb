@@ -6,7 +6,14 @@ describe ShallowAttributes::Type::String do
   describe '#coerce' do
     describe 'when value is String' do
       it 'returns string' do
+        type.coerce('').must_equal ''
         type.coerce('test').must_equal 'test'
+      end
+    end
+
+    describe 'when value is Sybol' do
+      it 'returns string' do
+        type.coerce(:test).must_equal 'test'
       end
     end
 
@@ -32,6 +39,19 @@ describe ShallowAttributes::Type::String do
     describe 'when value is FalseClass' do
       it 'returns string' do
         type.coerce(false).must_equal 'false'
+      end
+    end
+
+    describe 'when value is Array' do
+      it 'returns string' do
+        type.coerce([]).must_equal ''
+        type.coerce([1, 2, 'string']).must_equal '12string'
+      end
+    end
+
+    describe 'when value is Hash' do
+      it 'returns error' do
+        -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
       end
     end
   end

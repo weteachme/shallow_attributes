@@ -40,5 +40,13 @@ describe ShallowAttributes::Type::Boolean do
         type.coerce(false).must_equal false
       end
     end
+
+    describe 'when value is not allowed' do
+      it 'returns error' do
+        -> { type.coerce([]) }.must_raise ShallowAttributes::Type::InvalidValueError
+        -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
+        -> { type.coerce(:'1') }.must_raise ShallowAttributes::Type::InvalidValueError
+      end
+    end
   end
 end

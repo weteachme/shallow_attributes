@@ -17,6 +17,8 @@ module ShallowAttributes
       #   ShallowAttributes::Type::Float.coerce('2001')
       #     # => 2001.0
       #
+      # @raise [InvalidValueError] if values is invalid
+      #
       # @return [Float]
       #
       # @since 0.1.0
@@ -28,6 +30,8 @@ module ShallowAttributes
         else
           value.to_f
         end
+      rescue
+        raise ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{value}" for type "Float")
       end
     end
   end

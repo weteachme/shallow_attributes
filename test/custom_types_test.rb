@@ -79,13 +79,13 @@ describe ShallowAttributes do
       describe '#attributes' do
         it 'returns attributes hash' do
           hash = person.attributes
-          hash.must_equal({ addresses: [{ street: 'Street 1/2', city: { name: 'NYC' } }, { street: 'Street 3/2', city: { name: 'Moscow' } }] })
+          hash.must_equal(addresses: [{ street: 'Street 1/2', city: { name: 'NYC' } }, { street: 'Street 3/2', city: { name: 'Moscow' } }])
         end
 
         it 'returns changed attributes hash' do
           person.addresses[0].city.name = "LA"
           hash = person.attributes
-          hash.must_equal({ addresses: [{ street: 'Street 1/2', city: { name: 'LA' } }, { street: 'Street 3/2', city: { name: 'Moscow' } }] })
+          hash.must_equal(addresses: [{ street: 'Street 1/2', city: { name: 'LA' } }, { street: 'Street 3/2', city: { name: 'Moscow' } }])
         end
       end
     end

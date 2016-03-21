@@ -159,6 +159,24 @@ module ShallowAttributes
       self.to_h == object.to_h
     end
 
+    # Inspect instance object
+    #
+    # @example Equalate two value objects
+    #   class User
+    #     include ShallowAttributes
+    #     attribute :name, String, defauil: 'Ben'
+    #   end
+    #
+    #   user = User.new(name: 'Anton')
+    #   user.inspect # => "#<User name=\"Anton\">"
+    #
+    # @return [String]
+    #
+    # @since 0.1.0
+    def inspect
+      "#<#{self.class}#{attributes.map{ |k, v| " #{k}=#{v.inspect}" }.join}>"
+    end
+
   private
 
     # Defene default value for attributes.

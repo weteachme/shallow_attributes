@@ -1,5 +1,10 @@
 require 'test_helper'
 
+class SimpleUser
+  include ShallowAttributes
+  attribute :name, String, defauil: 'Ben'
+end
+
 class MainUser
   include ShallowAttributes
 
@@ -114,6 +119,13 @@ describe ShallowAttributes do
       user1 = MainUser.new(name: 'Anton')
       user2 = MainUser.new(name: 'Jon')
       user1.wont_equal user2
+    end
+  end
+
+  describe '#inspect' do
+    it 'returns string with object information' do
+      user = SimpleUser.new(name: 'Anton')
+      user.inspect.must_equal "#<SimpleUser name=\"Anton\">"
     end
   end
 

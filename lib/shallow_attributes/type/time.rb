@@ -30,7 +30,7 @@ module ShallowAttributes
           ::Time.parse(value.to_s)
         end
       rescue
-        raise ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{value}" for type "DateTime")
+        raise ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{value}" for type "Time")
       end
     end
   end

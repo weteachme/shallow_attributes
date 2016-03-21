@@ -45,11 +45,21 @@ describe ShallowAttributes::Type::Float do
 
     describe 'when value is not allowed' do
       it 'returns error' do
-        -> { type.coerce([]) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(:'1') }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce([]) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "[]" for type "Float")
+
+        err = -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "{}" for type "Float")
+
+        err = -> { type.coerce(:'1') }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "1" for type "Float")
+
+        err = -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "Class" for type "Float")
+
+        err = -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_match 'Invalid value "#<Class:'
+        err.message.must_match '" for type "Float"'
       end
     end
   end

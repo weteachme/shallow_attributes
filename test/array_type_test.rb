@@ -6,12 +6,24 @@ describe ShallowAttributes::Type::Array do
 
     describe 'when value is not Array' do
       it 'returns InvalidValueError' do
-        -> { type.coerce('test', of: Integer) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(123, of: Integer) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(true, of: Integer) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce({a: :b}, of: Integer) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce('test', of: Integer) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "test" for type "Array")
+
+        err = -> { type.coerce(123, of: Integer) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "123" for type "Array")
+
+        err = -> { type.coerce(true, of: Integer) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "true" for type "Array")
+
+        err = -> { type.coerce({a: :b}, of: Integer) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "{:a=>:b}" for type "Array")
+
+        err = -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "Class" for type "Array")
+
+        err = -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_match 'Invalid value "#<Class:'
+        err.message.must_match '" for type "Array"'
       end
     end
 

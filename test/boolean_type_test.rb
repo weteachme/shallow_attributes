@@ -6,8 +6,11 @@ describe ShallowAttributes::Type::Boolean do
   describe '#coerce' do
     describe 'when value is String' do
       it 'returns InvalidValueError' do
-        -> { type.coerce('test') }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce('') }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce('test') }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "test" for type "Boolean")
+
+        err = -> { type.coerce('') }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "" for type "Boolean")
       end
     end
 
@@ -43,11 +46,21 @@ describe ShallowAttributes::Type::Boolean do
 
     describe 'when value is not allowed' do
       it 'returns error' do
-        -> { type.coerce([]) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(:'1') }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce([]) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "[]" for type "Boolean")
+
+        err = -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "{}" for type "Boolean")
+
+        err = -> { type.coerce(:'1') }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "1" for type "Boolean")
+
+        err = -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "Class" for type "Boolean")
+
+        err = -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_match 'Invalid value "#<Class:'
+        err.message.must_match '" for type "Boolean"'
       end
     end
   end

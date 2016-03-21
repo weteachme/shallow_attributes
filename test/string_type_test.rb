@@ -51,13 +51,15 @@ describe ShallowAttributes::Type::String do
 
     describe 'when value is Hash' do
       it 'returns error' do
-        -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "{}" for type "String")
       end
     end
 
     describe 'when value is Class' do
       it 'returns error' do
-        -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "Class" for type "String")
       end
     end
 

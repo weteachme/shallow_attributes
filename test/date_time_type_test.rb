@@ -26,43 +26,59 @@ describe ShallowAttributes::Type::DateTime do
 
     describe 'when value is invalid String' do
       it 'returns error' do
-        -> { type.coerce('') }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce('1') }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce('') }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "" for type "DateTime")
+
+        err = -> { type.coerce('1') }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "1" for type "DateTime")
       end
     end
 
     describe 'when value is Numeric' do
       it 'returns InvalidValueError' do
-        -> { type.coerce(123123123) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce(123123123) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "123123123" for type "DateTime")
       end
     end
 
     describe 'when value is Nil' do
       it 'returns InvalidValueError' do
-        -> { type.coerce(nil) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce(nil) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "" for type "DateTime")
       end
     end
 
     describe 'when value is TrueClass' do
       it 'returns InvalidValueError' do
-        -> { type.coerce(true) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce(true) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "true" for type "DateTime")
       end
     end
 
     describe 'when value is FalseClass' do
       it 'returns InvalidValueError' do
-        -> { type.coerce(false) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce(false) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "false" for type "DateTime")
       end
     end
 
     describe 'when value is not allowed' do
       it 'returns error' do
-        -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce([]) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(:'1') }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
-        -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err = -> { type.coerce([]) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "[]" for type "DateTime")
+
+        err = -> { type.coerce({}) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "{}" for type "DateTime")
+
+        err = -> { type.coerce(:'1') }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "1" for type "DateTime")
+
+        err = -> { type.coerce(Class) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_equal %(Invalid value "Class" for type "DateTime")
+
+        err = -> { type.coerce(Class.new) }.must_raise ShallowAttributes::Type::InvalidValueError
+        err.message.must_match 'Invalid value "#<Class:'
+        err.message.must_match '" for type "DateTime"'
       end
     end
   end

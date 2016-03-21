@@ -60,8 +60,8 @@ module ShallowAttributes
     # @return [Class]
     #
     # @since 0.1.0
-    def self.type_instance(type)
-      ShallowAttributes::Type.const_get(type.to_s).new
+    def self.type_instance(klass)
+      ShallowAttributes::Type.const_get(klass.name).new
     end
   end
 end

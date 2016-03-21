@@ -32,7 +32,9 @@ module ShallowAttributes
     def initialize(attributes = {})
       attributes_list = self.class.attributes
       @attributes = attributes.delete_if { |key, _| !attributes_list.include?(key) }
+
       define_attributes
+      define_default_attributes
     end
 
     # Returns hash of object attributes
@@ -158,6 +160,25 @@ module ShallowAttributes
     end
 
   private
+
+    # Defene default value for attributes.
+    #
+    # @private
+    #
+    # @return the object
+    #
+    # @since 0.1.0
+    def define_default_attributes
+      default_values.each do |key, value|
+        next unless @attributes[key].nil?
+
+        if value.nil?
+          instance_variable_set("@#{key}", nil)
+        else value.nil?
+          send("#{key}=", default_value_for(key))
+        end
+      end
+    end
 
     # Defene attributes from `@attributes` instance value. If class
     # included `AM::Dirty`module `define_attributes` clear changes information

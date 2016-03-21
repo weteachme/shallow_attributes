@@ -61,31 +61,65 @@ describe ShallowAttributes do
       it 'allow embedded values' do
         person.addresses.count.must_equal 2
 
-        person.addresses[0].street.must_equal "Street 1/2"
-        person.addresses[0].city.name.must_equal "NYC"
+        person.addresses[0].street.must_equal 'Street 1/2'
+        person.addresses[0].city.name.must_equal 'NYC'
 
-        person.addresses[1].street.must_equal "Street 3/2"
-        person.addresses[1].city.name.must_equal "Moscow"
+        person.addresses[1].street.must_equal 'Street 3/2'
+        person.addresses[1].city.name.must_equal 'Moscow'
       end
 
       it 'allow change embedded values' do
-        person.addresses[0].city.name = "LA"
-        person.addresses[0].city.name.must_equal "LA"
+        person.addresses[0].city.name = 'LA'
+        person.addresses[0].city.name.must_equal 'LA'
 
-        person.addresses[1].city.name = "Spb"
-        person.addresses[1].city.name.must_equal "Spb"
+        person.addresses[1].city.name = 'Spb'
+        person.addresses[1].city.name.must_equal 'Spb'
       end
 
       describe '#attributes' do
         it 'returns attributes hash' do
           hash = person.attributes
-          hash.must_equal(addresses: [{ street: 'Street 1/2', city: { name: 'NYC' } }, { street: 'Street 3/2', city: { name: 'Moscow' } }])
+          hash.must_equal(addresses: [
+            {
+              zipcode: '111111',
+              street: 'Street 1/2',
+              city: {
+                size: 9000,
+                name: 'NYC'
+              }
+            },
+            {
+              zipcode: '111111',
+              street: 'Street 3/2',
+              city: {
+                size: 9000,
+                name: 'Moscow'
+              }
+            }
+          ])
         end
 
         it 'returns changed attributes hash' do
-          person.addresses[0].city.name = "LA"
+          person.addresses[0].city.name = 'LA'
           hash = person.attributes
-          hash.must_equal(addresses: [{ street: 'Street 1/2', city: { name: 'LA' } }, { street: 'Street 3/2', city: { name: 'Moscow' } }])
+          hash.must_equal(addresses: [
+            {
+              zipcode: '111111',
+              street: 'Street 1/2',
+              city: {
+                size: 9000,
+                name: 'LA'
+              }
+            },
+            {
+              zipcode: '111111',
+              street: 'Street 3/2',
+              city: {
+                size: 9000,
+                name: 'Moscow'
+              }
+            }
+          ])
         end
       end
     end

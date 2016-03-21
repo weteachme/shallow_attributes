@@ -111,7 +111,7 @@ module ShallowAttributes
     def initialize_getter(name)
       module_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{name}
-          @#{name} || default_value_for(#{name.inspect})
+          @#{name}
         end
       EOS
     end

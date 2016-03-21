@@ -92,7 +92,7 @@ describe ShallowAttributes do
 
   describe '#attributes' do
     it 'returns attributes like hash' do
-      user.attributes.must_equal(name: 'Anton', age: 22)
+      user.attributes.must_equal(name: 'Anton', age: 22, last_name: "Affleck", full_name: "Anton Affleck", friends_count: 0, sizes: [], admin: false)
     end
   end
 

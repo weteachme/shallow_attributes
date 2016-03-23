@@ -39,7 +39,7 @@ describe ShallowAttributes::Type::Time do
 
     describe 'when value is Numeric' do
       it 'returns time object' do
-        type.coerce(628232400).to_s.must_equal '1989-11-28 08:00:00 +0300'
+        type.coerce(628232400).to_s.must_equal Time.at(628232400).to_s
       end
     end
 

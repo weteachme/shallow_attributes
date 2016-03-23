@@ -14,7 +14,7 @@ module ShallowAttributes
       # @param [Hash] object
       #
       # @example Convert string to float value
-      #   ShallowAttributes::Type::Float.coerce('2001')
+      #   ShallowAttributes::Type::Float.new.coerce('2001')
       #     # => 2001.0
       #
       # @raise [InvalidValueError] if values is invalid

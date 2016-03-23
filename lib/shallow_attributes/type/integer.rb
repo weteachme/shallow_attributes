@@ -14,7 +14,7 @@ module ShallowAttributes
       # @param [Hash] object
       #
       # @example Convert sting to integer value
-      #   ShallowAttributes::Type::Integer.coerce('2001')
+      #   ShallowAttributes::Type::Integer.new.coerce('2001')
       #     # => 2001
       #
       # @raise [InvalidValueError] if values is invalid

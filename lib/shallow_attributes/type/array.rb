@@ -15,7 +15,7 @@ module ShallowAttributes
       # @option options [String] :of the type of array element class
       #
       # @example Convert integer array to string array
-      #   ShallowAttributes::Type::Array.coerce([1, 2], String)
+      #   ShallowAttributes::Type::Array.new.coerce([1, 2], String)
       #     # => ['1', '2']
       #
       # @raise [InvalidValueError] if values is not Array

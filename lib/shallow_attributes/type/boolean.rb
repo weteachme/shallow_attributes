@@ -28,10 +28,10 @@ module ShallowAttributes
       # @param [Hash] object
       #
       # @example Convert integer to boolean value
-      #   ShallowAttributes::Type::Boolean.coerce(1)
+      #   ShallowAttributes::Type::Boolean.new.coerce(1)
       #     # => true
       #
-      #   ShallowAttributes::Type::Boolean.coerce(0)
+      #   ShallowAttributes::Type::Boolean.new.coerce(0)
       #     # => false
       #
       # @raise [InvalidValueError] if values is not included in true and false arrays

@@ -43,6 +43,20 @@ module ShallowAttributes
 
   private
 
+    # Hash object with cached type objects.
+    #
+    # @private
+    #
+    # @since 0.1.0
+    DEFAULT_TYPE_OBJECTS = {
+      ::Array    => ShallowAttributes::Type::Array.new,
+      ::DateTime => ShallowAttributes::Type::DateTime.new,
+      ::Float    => ShallowAttributes::Type::Float.new,
+      ::Integer  => ShallowAttributes::Type::Integer.new,
+      ::String   => ShallowAttributes::Type::String.new,
+      ::Time     => ShallowAttributes::Type::Time.new
+    }.freeze
+
     # Returns class object for specific Type class
     #
     # @private
@@ -61,7 +75,7 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def self.type_instance(klass)
-      ShallowAttributes::Type.const_get(klass.name).new
+      DEFAULT_TYPE_OBJECTS[klass] || ShallowAttributes::Type.const_get(klass.name).new
     end
   end
 end

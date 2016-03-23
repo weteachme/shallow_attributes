@@ -25,7 +25,7 @@ module ShallowAttributes
         when ::Array then value.join
         when ::Hash, ::Class then error(value)
         else
-          value.to_s
+          value.respond_to?(:to_s) ? value.to_s : error(value)
         end
       end
 

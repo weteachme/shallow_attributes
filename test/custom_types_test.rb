@@ -25,7 +25,20 @@ end
 
 describe ShallowAttributes do
   describe 'with custom types' do
-    it 'allow embedded values' do
+    it 'allows embedded values' do
+      person = Person.new(address: {
+        street: 'Street 1/2', city: {
+          name: 'NYC'
+        }
+      })
+
+      person.address.zipcode.must_equal "111111"
+      person.address.street.must_equal "Street 1/2"
+      person.address.city.size.must_equal 9000
+      person.address.city.name.must_equal "NYC"
+    end
+
+    it 'returns normal hash' do
       person = Person.new(address: {
         street: 'Street 1/2', city: {
           name: 'NYC'

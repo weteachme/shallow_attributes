@@ -28,10 +28,9 @@ module ShallowAttributes
         when ::TrueClass then 1
         when ::FalseClass then 0
         else
-          value.to_i
+          value.respond_to?(:to_i) ? value.to_i
+            : raise(ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{value}" for type "Integer"))
         end
-      rescue
-        raise ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{value}" for type "Integer")
       end
     end
   end

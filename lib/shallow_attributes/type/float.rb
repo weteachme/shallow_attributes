@@ -28,10 +28,9 @@ module ShallowAttributes
         when ::TrueClass then 1.0
         when ::FalseClass then 0.0
         else
-          value.to_f
+          value.respond_to?(:to_f) ? value.to_f
+            : raise(ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{value}" for type "Float"))
         end
-      rescue
-        raise ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{value}" for type "Float")
       end
     end
   end

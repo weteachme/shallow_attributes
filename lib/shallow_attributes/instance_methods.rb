@@ -29,9 +29,9 @@ module ShallowAttributes
     # @return the new instance of value class with specific attributes
     #
     # @since 0.1.0
-    def initialize(attributes = {})
-      attributes_list = self.class.attributes
-      @attributes = attributes.delete_if { |key, _| !attributes_list.include?(key) }
+    def initialize(attrs = {})
+      attributes_list = default_values.keys
+      @attributes = attrs.delete_if { |key, _| !attributes_list.include?(key) }
 
       define_attributes
       define_default_attributes
@@ -192,7 +192,7 @@ module ShallowAttributes
 
         if value.nil?
           instance_variable_set("@#{key}", nil)
-        else value.nil?
+        else
           send("#{key}=", default_value_for(key))
         end
       end

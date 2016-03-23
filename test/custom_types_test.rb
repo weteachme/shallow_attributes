@@ -58,7 +58,7 @@ describe ShallowAttributes do
         )
       end
 
-      it 'allow embedded values' do
+      it 'allows embedded values' do
         person.addresses.count.must_equal 2
 
         person.addresses[0].street.must_equal 'Street 1/2'
@@ -68,7 +68,7 @@ describe ShallowAttributes do
         person.addresses[1].city.name.must_equal 'Moscow'
       end
 
-      it 'allow change embedded values' do
+      it 'allows change embedded values' do
         person.addresses[0].city.name = 'LA'
         person.addresses[0].city.name.must_equal 'LA'
 

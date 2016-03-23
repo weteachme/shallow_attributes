@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin
+class NewAdmin
   include ShallowAttributes
 
   attribute :name,   String
@@ -19,7 +19,7 @@ end
 
 describe ShallowAttributes do
   it 'can overrite setter' do
-    user = Admin.new
+    user = NewAdmin.new
 
     user.name = "Frank"
     user.name.must_equal 'Frank'

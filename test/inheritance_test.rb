@@ -24,7 +24,7 @@ describe ShallowAttributes do
   describe '::attributes' do
     describe 'for inheritance' do
       it 'returns array of all attributes' do
-        Moderator.attributes.must_equal(%i(name role rates))
+        Moderator.attributes.must_equal(%i(rates name role))
       end
     end
   end

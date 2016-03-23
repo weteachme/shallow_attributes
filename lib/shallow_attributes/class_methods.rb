@@ -14,9 +14,11 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def default_values
-      superclass.default_values.merge(@default_values)
-    rescue NoMethodError
-      @default_values
+      if superclass.respond_to?(:default_values)
+        @default_values.merge!(superclass.default_values) { |_, v, _| v }
+      else
+        @default_values
+      end
     end
 
     # Returns all class attributes.

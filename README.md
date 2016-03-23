@@ -1,4 +1,5 @@
 # ShallowAttributes
+[![Build Status](https://travis-ci.org/davydovanton/shallow_attributes.svg?branch=master)](https://travis-ci.org/davydovanton/shallow_attributes)
 
 Simple and lightweight Virtus analog.
 

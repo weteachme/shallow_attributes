@@ -86,8 +86,7 @@ module ShallowAttributes
       define_attributes
     end
 
-    # Reser specific attribute to defaul value. If class included
-    # `AM::Dirty`module `reset_attribute` reset change value.
+    # Reser specific attribute to defaul value.
     #
     # @param [Symbol] attribute the attribute which will be resete
     #
@@ -105,7 +104,6 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def reset_attribute(attribute)
-      changed_attributes.delete(attribute.to_s) if dirty_load?
       instance_variable_set("@#{attribute}", default_value_for(attribute))
     end
 
@@ -198,8 +196,7 @@ module ShallowAttributes
       end
     end
 
-    # Defene attributes from `@attributes` instance value. If class
-    # included `AM::Dirty`module `define_attributes` clear changes information
+    # Defene attributes from `@attributes` instance value.
     #
     # @private
     #
@@ -210,8 +207,6 @@ module ShallowAttributes
       @attributes.each do |name, value|
         send("#{name}=", value)
       end
-
-      send(:clear_changes_information) if dirty_load?
     end
 
     # Retrns default value for specific attribute. Defaul values hash
@@ -234,19 +229,6 @@ module ShallowAttributes
       else
         value
       end
-    end
-
-    # Returns true in ActiveModel::Dirty defined and included to
-    # current value class
-    #
-    # @private
-    #
-    # @return [boolean]
-    #
-    # @since 0.1.0
-    def dirty_load?
-      @dirty_load ||=
-        defined?(::ActiveModel::Dirty) && self.class.include?(::ActiveModel::Dirty)
     end
 
     # Returns hash of default class values

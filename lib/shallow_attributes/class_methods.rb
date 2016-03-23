@@ -68,7 +68,6 @@ module ShallowAttributes
 
       initialize_setter(name, type, options)
       initialize_getter(name)
-      initialize_modules(name)
     end
 
     private
@@ -87,14 +86,8 @@ module ShallowAttributes
     def initialize_setter(name, type, options)
       module_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{name}=(value)
-          @attributes[:#{name}] =
-            ShallowAttributes::Type.coerce(#{type}, value, #{options})
-
-          if dirty_load?
-            #{name}_will_change! unless @#{name} == @attributes[:#{name}]
-          end
-
-          @#{name} = @attributes[:#{name}]
+          @#{name} = ShallowAttributes::Type.coerce(#{type}, value, #{options})
+          @attributes[:#{name}] = @#{name}
         end
       EOS
     end
@@ -112,24 +105,6 @@ module ShallowAttributes
       module_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{name}
           @#{name}
-        end
-      EOS
-    end
-
-    # Define `define_attribute_method` method for each attribute
-    # if AM::Dirty defined and included to current class.
-    #
-    # @private
-    #
-    # @param [String, Symbol] name the attribute name
-    #
-    # @return [Object]
-    #
-    # @since 0.1.0
-    def initialize_modules(name)
-      module_eval <<-EOS, __FILE__, __LINE__ + 1
-        if defined?(::ActiveModel::Dirty) && include?(::ActiveModel::Dirty)
-          define_attribute_method :#{name}
         end
       EOS
     end

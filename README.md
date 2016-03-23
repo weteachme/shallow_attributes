@@ -250,14 +250,13 @@ user = User.new(name: "Godzilla")
 user.name # => 'Can't tell'
 ```
 
-### ActiveModel validation and dirty
+### ActiveModel validation
 
 ``` ruby
 require 'active_model'
 
 class Children
   include ShallowAttributes
-  include ActiveModel::Dirty
   include ActiveModel::Validations
 
   attribute :scream, String
@@ -268,11 +267,6 @@ user = User.new(scream: '')
 user.valid? # => false
 user.scream = 'hello world!'
 user.valid? # => true
-
-user = User.new(scream: '')
-user.changed? # => false
-user.scream = 'hello world!'
-user.changed? # => true
 ```
 
 ## Ruby version support

@@ -68,6 +68,8 @@ module ShallowAttributes
 
     # Mass-assignment attribut values
     #
+    # @param [Hash] attributes the attributes which will be assignment
+    #
     # @example Assignment new user name
     #   class User
     #     include ShallowAttributes
@@ -78,7 +80,7 @@ module ShallowAttributes
     #   user.attributes = { name: "Ben" }
     #   user.attributes # => { name: "Ben" }
     #
-    # @return [Hash]
+    # @return [Hash] attibutes hash
     #
     # @since 0.1.0
     def attributes=(attributes)

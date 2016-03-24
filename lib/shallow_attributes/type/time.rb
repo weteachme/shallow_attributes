@@ -11,7 +11,7 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
-      # @param [Hash] object
+      # @param [Hash] option
       #
       # @example Convert string to Time value
       #   ShallowAttributes::Type::Time.new.coerce('Thu Nov 29 14:33:20 GMT 2001')

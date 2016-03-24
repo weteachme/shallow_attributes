@@ -11,7 +11,7 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
-      # @param [Hash] object
+      # @param [Hash] option
       #
       # @example Convert integer to datetime value
       #   ShallowAttributes::Type::DateTime.new.coerce('Thu Nov 29 14:33:20 GMT 2001')

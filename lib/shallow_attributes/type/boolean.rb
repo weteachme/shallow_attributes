@@ -25,7 +25,7 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
-      # @param [Hash] object
+      # @param [Hash] option
       #
       # @example Convert integer to boolean value
       #   ShallowAttributes::Type::Boolean.new.coerce(1)

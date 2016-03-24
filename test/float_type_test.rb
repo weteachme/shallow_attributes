@@ -20,8 +20,14 @@ describe ShallowAttributes::Type::Float do
     end
 
     describe 'when value is Nil' do
+      it 'returns nil' do
+        type.coerce(nil).must_equal nil
+      end
+    end
+
+    describe 'when allow_nil is true' do
       it 'returns float' do
-        type.coerce(nil).must_equal 0.0
+        type.coerce(nil, allow_nil: true).must_equal 0.0
       end
     end
 
@@ -32,12 +38,6 @@ describe ShallowAttributes::Type::Float do
     end
 
     describe 'when value is FalseClass' do
-      it 'returns float' do
-        type.coerce(false).must_equal 0.0
-      end
-    end
-
-    describe 'when value is Complex' do
       it 'returns float' do
         type.coerce(false).must_equal 0.0
       end

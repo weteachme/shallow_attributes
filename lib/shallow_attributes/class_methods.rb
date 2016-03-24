@@ -49,6 +49,7 @@ module ShallowAttributes
     # @param [hash] options the attribute options
     # @option options [Object] :default default value for attribute
     # @option options [Class] :of class of array elems
+    # @option options [boolean] :allow_nil cast `nil` to integer or float
     #
     # @example Create new User instance
     #   class User

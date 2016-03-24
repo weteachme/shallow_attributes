@@ -44,10 +44,19 @@ class User
   attribute :birthday, DateTime
 end
 
+class SuperUser < User
+  include ShallowAttributes
+
+  attribute :name, String
+  attribute :age, Integer, allow_nil: true
+  attribute :birthday, DateTime
+end
+
 user = User.new(name: 'Anton', age: 31)
 user.name # => "Anton"
 
 user.age = '31' # => 31
+user.age = nil # => nil
 user.age.class # => Fixnum
 
 user.birthday = 'November 18th, 1983' # => #<DateTime: 1983-11-18T00:00:00+00:00 (4891313/2,0/1,2299161)>
@@ -58,6 +67,9 @@ user.attributes # => { name: "Anton", age: 31, birthday: nil }
 user.attributes = { name: 'Jane', age: 21 }
 user.name # => "Jane"
 user.age  # => 21
+
+super_user = SuperUser.new
+user.age = nil # => 0
 ```
 
 ### Default Values

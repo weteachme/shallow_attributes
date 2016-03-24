@@ -25,6 +25,7 @@ module ShallowAttributes
     # @param [Object] value the value that should be submit to the necessary type
     # @param [Hash] options the options to create a message with.
     # @option options [String] :of The type of array
+    # @option options [boolean] :allow_nil cast `nil` to integer or float
     #
     # @example Convert integer to sting type
     #   ShallowAttributes::Type.coerce(String, 1)

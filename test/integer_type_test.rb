@@ -19,8 +19,14 @@ describe ShallowAttributes::Type::Integer do
     end
 
     describe 'when value is Nil' do
+      it 'returns nil' do
+        type.coerce(nil).must_equal nil
+      end
+    end
+
+    describe 'when allow_nil is true' do
       it 'returns integer' do
-        type.coerce(nil).must_equal 0
+        type.coerce(nil, allow_nil: true).must_equal 0
       end
     end
 

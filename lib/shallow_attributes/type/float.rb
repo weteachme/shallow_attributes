@@ -11,7 +11,8 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
-      # @param [Hash] object
+      # @param [Hash] option
+      # @option options [boolean] :allow_nil cast `nil` to integer or float
       #
       # @example Convert string to float value
       #   ShallowAttributes::Type::Float.new.coerce('2001')
@@ -24,7 +25,7 @@ module ShallowAttributes
       # @since 0.1.0
       def coerce(value, options = {})
         case value
-        when nil then 0.0
+        when nil then options[:allow_nil] ? 0.0 : nil
         when ::TrueClass then 1.0
         when ::FalseClass then 0.0
         else

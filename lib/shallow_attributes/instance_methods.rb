@@ -12,7 +12,7 @@ module ShallowAttributes
     # @private
     #
     # @since 0.1.0
-    TO_H_PROC = -> (value) { value.respond_to?(:to_h) ? value.to_h : value }
+    TO_H_PROC = -> (value) { value.respond_to?(:to_hash) ? value.to_hash : value }
 
     # Initialize instance object with specific attributes
     #

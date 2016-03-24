@@ -99,6 +99,15 @@ describe ShallowAttributes do
     it 'returns attributes like hash' do
       user.attributes.must_equal(name: 'Anton', age: 22, last_name: "Affleck", full_name: "Anton Affleck", friends_count: 0, sizes: [], admin: false)
     end
+
+    describe 'when value is nil' do
+      it 'returns attributes like hash' do
+        user.name  = nil
+        user.age   = nil
+        user.admin = nil
+        user.attributes.must_equal(name: '', age: 0, last_name: "Affleck", full_name: "Anton Affleck", friends_count: 0, sizes: [], admin: false)
+      end
+    end
   end
 
   describe '#reset_attribute' do

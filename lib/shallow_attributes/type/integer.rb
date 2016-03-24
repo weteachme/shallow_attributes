@@ -1,6 +1,6 @@
 module ShallowAttributes
   module Type
-    # Abstract class for typecast object to Integer type.
+    # Abstract class. This class cange object to Integer.
     #
     # @abstract
     #

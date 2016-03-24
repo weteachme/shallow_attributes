@@ -104,11 +104,7 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def initialize_getter(name)
-      module_eval <<-EOS, __FILE__, __LINE__ + 1
-        def #{name}
-          @#{name}
-        end
-      EOS
+      attr_reader name
     end
   end
 end

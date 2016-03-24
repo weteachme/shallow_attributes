@@ -131,7 +131,7 @@ module ShallowAttributes
     # @return the object
     #
     # @since 0.1.0
-    def coerce(value, options = {})
+    def coerce(value, _options = {})
       self.attributes = value
       self
     end

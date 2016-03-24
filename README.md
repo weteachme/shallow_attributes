@@ -4,16 +4,16 @@
 [![Coverage Status](https://coveralls.io/repos/github/davydovanton/shallow_attributes/badge.svg?branch=master)](https://coveralls.io/github/davydovanton/shallow_attributes?branch=master)
 [![Inline docs](http://inch-ci.org/github/davydovanton/shallow_attributes.svg?branch=master)](http://inch-ci.org/github/davydovanton/shallow_attributes)
 
-Simple and lightweight Virtus analog.
+Simple and lightweight Virtus analog without any dependencies.
 
 ## Motivation
 
 There are already a lot of good and flexible gems which solve a similar problem, allowing attributes to be
-defined with their types, for example: virtus, fast_attributes or attrio. However, the disadvantage of these
+defined with their types, for example: [virtus][virtus-link], [fast_attributes][fast-attributes-link] or [attrio][attrio-link]. However, the disadvantage of these
 gems is performance or API. So, the goal of ShallowAttributes is to provide a simple solution which is similar
 to the Virtus API, simple, fast, understandable and extendable.
 
-This is [the performance benchmark](https://gist.github.com/davydovanton/d14b51ab63e3fab63ecb) of ShallowAttributes compared to virtus gems.
+This is [the performance benchmark][performance-benchmark] of ShallowAttributes compared to virtus gems.
 
 ## Installation
 
@@ -287,11 +287,15 @@ user.valid? # => true
 
 ## Ruby version support
 
-ShallowAttributes is known to work correctly with the following rubies:
+ShallowAttributes is [known to work correctly][travis-link] with the following rubies:
 
-* 2.3+
+* 2.0.0
+* 2.1.8
+* 2.2.4
+* 2.3.0
+* jruby-head
 
-In future I want ot support other ruby sersion/platforms.
+Also we run rbx-2 buld too.
 
 ## Contributing
 
@@ -299,8 +303,13 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/davydo
 This project is intended to be a safe, welcoming space for collaboration, and contributors are expected
 to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
+
+[virtus-link]: https://github.com/solnic/virtus
+[fast-attributes-link]: https://github.com/applift/fast_attributes
+[attrio-link]: https://github.com/jetrockets/attrio
+[performance-benchmark]: https://gist.github.com/davydovanton/d14b51ab63e3fab63ecb
+[travis-link]: https://travis-ci.org/davydovanton/shallow_attributes

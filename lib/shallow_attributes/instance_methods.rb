@@ -30,9 +30,7 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def initialize(attrs = {})
-      attributes_list = default_values.keys
-      @attributes = attrs.delete_if { |key, _| !attributes_list.include?(key) }
-
+      @attributes = attrs.delete_if { |key, _| !default_values.key?(key) }
       define_attributes
       define_default_attributes
     end
@@ -188,13 +186,8 @@ module ShallowAttributes
     # @since 0.1.0
     def define_default_attributes
       default_values.each do |key, value|
-        next unless @attributes[key].nil?
-
-        if value.nil?
-          instance_variable_set("@#{key}", nil)
-        else
-          send("#{key}=", default_value_for(key))
-        end
+        next unless @attributes[key].nil? && !value.nil?
+        send("#{key}=", default_value_for(key))
       end
     end
 
@@ -206,8 +199,8 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def define_attributes
-      @attributes.each do |name, value|
-        send("#{name}=", value)
+      @attributes.each do |key, value|
+        send("#{key}=", value)
       end
     end
 

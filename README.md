@@ -12,7 +12,7 @@ defined with their types, for example: virtus, fast_attributes or attrio. Howeve
 gems is performance or API. So, the goal of ShallowAttributes is to provide a simple solution which is similar
 to the Virtus API, simple, fast, understandable and extendable.
 
-This is [the performance benchmark](https://gist.github.com/davydovanton/7cf0da532eae71381cbd) of ShallowAttributes compared to virtus gems.
+This is [the performance benchmark](https://gist.github.com/davydovanton/d14b51ab63e3fab63ecb) of ShallowAttributes compared to virtus gems.
 
 ## Installation
 

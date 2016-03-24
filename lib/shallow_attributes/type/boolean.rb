@@ -39,7 +39,7 @@ module ShallowAttributes
       # @return [boolean]
       #
       # @since 0.1.0
-      def coerce(value, options = {})
+      def coerce(value, _options = {})
         if TRUE_VALUES.include?(value)
           true
         elsif FALSE_VALUES.include?(value)

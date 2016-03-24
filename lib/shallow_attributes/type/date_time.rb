@@ -22,7 +22,7 @@ module ShallowAttributes
       # @return [DateTime]
       #
       # @since 0.1.0
-      def coerce(value, options = {})
+      def coerce(value, _options = {})
         case value
         when ::DateTime then value
         when ::Time then ::DateTime.parse(value.to_s)

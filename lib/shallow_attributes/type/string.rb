@@ -20,7 +20,7 @@ module ShallowAttributes
       # @return [Sting]
       #
       # @since 0.1.0
-      def coerce(value, options = {})
+      def coerce(value, _options = {})
         case value
         when ::Array then value.join
         when ::Hash, ::Class then error(value)

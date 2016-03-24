@@ -22,7 +22,7 @@ module ShallowAttributes
       # @return [Time]
       #
       # @since 0.1.0
-      def coerce(value, options = {})
+      def coerce(value, _options = {})
         case value
         when ::Time then value
         when ::Integer then ::Time.at(value)

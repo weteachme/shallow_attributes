@@ -1,6 +1,6 @@
 module ShallowAttributes
   module Type
-    # Abstract class. This class needs for cange object type to Float.
+    # This class needs for cange object type to Float.
     #
     # @abstract
     #

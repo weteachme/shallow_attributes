@@ -6,3 +6,5 @@ gemspec
 if !ENV['TRAVIS']
   gem 'yard', require: false
 end
+
+gem 'coveralls', require: false

@@ -1,6 +1,7 @@
 # ShallowAttributes
 [![Build Status](https://travis-ci.org/davydovanton/shallow_attributes.svg?branch=master)](https://travis-ci.org/davydovanton/shallow_attributes)
 [![Code Climate](https://codeclimate.com/github/davydovanton/shallow_attributes/badges/gpa.svg)](https://codeclimate.com/github/davydovanton/shallow_attributes)
+[![Coverage Status](https://coveralls.io/repos/github/davydovanton/shallow_attributes/badge.svg?branch=master)](https://coveralls.io/github/davydovanton/shallow_attributes?branch=master)
 [![Inline docs](http://inch-ci.org/github/davydovanton/shallow_attributes.svg?branch=master)](http://inch-ci.org/github/davydovanton/shallow_attributes)
 
 Simple and lightweight Virtus analog.

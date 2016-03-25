@@ -16,7 +16,7 @@ module ShallowAttributes
 
     # Initialize instance object with specific attributes
     #
-    # @param [Hash] attributes the attributes contained in the class
+    # @param [Hash] attrs the attributes contained in the class
     #
     # @example Create new User instance
     #   class User

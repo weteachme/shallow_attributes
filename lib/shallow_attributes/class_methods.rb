@@ -89,7 +89,12 @@ module ShallowAttributes
     def initialize_setter(name, type, options)
       module_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{name}=(value)
-          @#{name} = ShallowAttributes::Type.coerce(#{type}, value, #{options})
+          @#{name} = if value.is_a?(#{type}) && !value.is_a?(Array)
+            value
+          else
+            ShallowAttributes::Type.coerce(#{type}, value, #{options})
+          end
+
           @attributes[:#{name}] = @#{name}
         end
       EOS

@@ -159,7 +159,7 @@ module ShallowAttributes
 
     # Inspect instance object
     #
-    # @example Equalate two value objects
+    # @example Inspect value object
     #   class User
     #     include ShallowAttributes
     #     attribute :name, String, defauil: 'Ben'

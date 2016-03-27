@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/davydovanton/shallow_attributes/badge.svg?branch=master)](https://coveralls.io/github/davydovanton/shallow_attributes?branch=master)
 [![Inline docs](http://inch-ci.org/github/davydovanton/shallow_attributes.svg?branch=master)](http://inch-ci.org/github/davydovanton/shallow_attributes)
 
-Simple and lightweight Virtus analog without any dependencies.
+Simple and lightweight Virtus analog without any dependencies. [Documentation][doc-link].
 
 ## Motivation
 
@@ -308,6 +308,7 @@ to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
 
+[doc-link]: http://www.rubydoc.info/github/davydovanton/shallow_attributes/master
 [virtus-link]: https://github.com/solnic/virtus
 [fast-attributes-link]: https://github.com/applift/fast_attributes
 [attrio-link]: https://github.com/jetrockets/attrio

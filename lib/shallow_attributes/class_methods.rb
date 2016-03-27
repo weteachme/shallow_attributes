@@ -24,7 +24,7 @@ module ShallowAttributes
     # Returns all class attributes.
     #
     #
-    # @example Return User attribyte list
+    # @example Create new User instance
     #   class User
     #     include ShallowAttributes
     #     attribute :name, String
@@ -51,7 +51,7 @@ module ShallowAttributes
     # @option options [Class] :of class of array elems
     # @option options [boolean] :allow_nil cast `nil` to integer or float
     #
-    # @example Create new User with specific attribute
+    # @example Create new User instance
     #   class User
     #     include ShallowAttributes
     #     attribute :name, String, default: 'Anton'

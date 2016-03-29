@@ -33,6 +33,16 @@ Or install it yourself as:
 
 ## Examples
 
+Table of contents:
+* [Using ShallowAttributes with Classes](#using-shallowattributes-with-classes)
+* [Default Values](#default-values)
+* [Embedded Value](#embedded-value)
+* [Custom Coercions](#custom-coercions)
+* [Collection Member Coercions](#collection-member-coercions)
+* [Note about Member Coercions](#important-note-about-member-coercions)
+* [Overriding setters](#overriding-setters)
+* [ActiveModel validation](#activemodel-validation)
+
 ### Using ShallowAttributes with Classes
 You can create classes extended with Virtus and define attributes:
 
@@ -110,7 +120,7 @@ page.reset_attribute(:views)  # => 0
 page.views                    # => 0
 ```
 
-## Embedded Value
+### Embedded Value
 
 ``` ruby
 class City
@@ -238,6 +248,32 @@ user.attributes # => {
                 # =>   :addresses => [
                 # =>     { :address => '1234 Any St.', :locality => 'Anytown', :region => "DC", :postal_code => "21234" } ]
                 # => }
+```
+
+### IMPORTANT note about member coercions
+
+ShallowAttributes performs coercions only when a value is being assigned. If you mutate the value later on using its own interfaces then coercion won't be triggered.
+
+Here's an example:
+
+``` ruby
+class Book
+  include ShallowAttributes
+  attribute :title, String
+end
+
+class Library
+  include ShallowAttributes
+  attribute :books, Array, of: Book
+end
+
+library = Library.new
+
+# This will coerce Hash to a Book instance
+library.books = [ { :title => 'Introduction' } ]
+
+# This WILL NOT COERCE the value because you mutate the books array with Array#<<
+library.books << { :title => 'Another Introduction' }
 ```
 
 ### Overriding setters

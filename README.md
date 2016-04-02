@@ -32,8 +32,7 @@ Or install it yourself as:
     $ gem install shallow_attributes
 
 ## Examples
-
-Table of contents:
+### Table of contents
 * [Using ShallowAttributes with Classes](#using-shallowattributes-with-classes)
 * [Default Values](#default-values)
 * [Embedded Value](#embedded-value)

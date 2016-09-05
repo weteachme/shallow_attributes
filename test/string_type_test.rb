@@ -11,7 +11,7 @@ describe ShallowAttributes::Type::String do
       end
     end
 
-    describe 'when value is Sybol' do
+    describe 'when value is Symbol' do
       it 'returns string' do
         type.coerce(:test).must_equal 'test'
       end

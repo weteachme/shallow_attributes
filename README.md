@@ -8,10 +8,11 @@ Simple and lightweight Virtus analog without any dependencies. [Documentation][d
 
 ## Motivation
 
-There are already a lot of good and flexible gems which solve a similar problem, allowing attributes to be
-defined with their types, for example: [virtus][virtus-link], [fast_attributes][fast-attributes-link] or [attrio][attrio-link]. However, the disadvantage of these
-gems is performance or API. So, the goal of ShallowAttributes is to provide a simple solution which is similar
-to the Virtus API, simple, fast, understandable and extendable.
+There are already a lot of good and flexible gems which solve a similar problem, allowing attributes
+to be defined with their types, for example: [virtus][virtus-link], [fast_attributes][fast-attributes-link]
+or [attrio][attrio-link]. However, the disadvantage of these gems is performance or API. So, the goal
+of `ShallowAttributes` is to provide a simple solution which is similar to the `Virtus` API, simple, fast,
+understandable and extendable.
 
 This is [the performance benchmark][performance-benchmark] of ShallowAttributes compared to virtus gems.
 
@@ -63,11 +64,11 @@ class SuperUser < User
 end
 
 user = User.new(name: 'Anton', age: 31)
-user.name # => "Anton"
+user.name       # => "Anton"
 
 user.age = '31' # => 31
-user.age = nil # => nil
-user.age.class # => Fixnum
+user.age = nil  # => nil
+user.age.class  # => Fixnum
 
 user.birthday = 'November 18th, 1983' # => #<DateTime: 1983-11-18T00:00:00+00:00 (4891313/2,0/1,2299161)>
 
@@ -75,11 +76,11 @@ user.attributes # => { name: "Anton", age: 31, birthday: nil }
 
 # mass-assignment
 user.attributes = { name: 'Jane', age: 21 }
-user.name # => "Jane"
-user.age  # => 21
+user.name       # => "Jane"
+user.age        # => 21
 
 super_user = SuperUser.new
-user.age = nil # => 0
+user.age = nil  # => 0
 ```
 
 ### Default Values
@@ -152,7 +153,7 @@ user = User.new(address: {
   }
 })
 
-user.address.street # => "Street 1/2"
+user.address.street    # => "Street 1/2"
 user.address.city.name # => "NYC"
 ```
 
@@ -175,7 +176,7 @@ end
 
 user = User.new
 user.info = '{"email":"john@domain.com"}' # => {"email"=>"john@domain.com"}
-user.info.class # => Hash
+user.info.class                           # => Hash
 
 # With a custom attribute encapsulating coercion-specific configuration
 class NoisyString
@@ -238,15 +239,23 @@ user = User.new(
     { :address => '1234 Any St.', :locality => 'Anytown', :region => "DC", :postal_code => "21234" } ])
 
 user.phone_numbers # => [#<PhoneNumber:0x007fdb2d3bef88 @number="212-555-1212">, #<PhoneNumber:0x007fdb2d3beb00 @number="919-444-3265">]
-user.addresses # => [#<Address:0x007fdb2d3be448 @address="1234 Any St.", @locality="Anytown", @region="DC", @postal_code="21234">]
+user.addresses     # => [#<Address:0x007fdb2d3be448 @address="1234 Any St.", @locality="Anytown", @region="DC", @postal_code="21234">]
 
-user.attributes # => {
-                # =>   :phone_numbers => [
-                # =>     { :number => '212-555-1212' },
-                # =>     { :number => '919-444-3265' } ],
-                # =>   :addresses => [
-                # =>     { :address => '1234 Any St.', :locality => 'Anytown', :region => "DC", :postal_code => "21234" } ]
-                # => }
+user.attributes
+# => {
+# =>   :phone_numbers => [
+# =>     { :number => '212-555-1212' },
+# =>     { :number => '919-444-3265' }
+# =>   ],
+# =>   :addresses => [
+# =>     {
+# =>       :address => '1234 Any St.',
+# =>       :locality => 'Anytown',
+# =>       :region => "DC",
+# =>       :postal_code => "21234"
+# =>     }
+# =>   ]
+# => }
 ```
 
 ### IMPORTANT note about member coercions

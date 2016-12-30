@@ -37,8 +37,8 @@ describe ShallowAttributes do
     let(:user) { MainUser.new }
 
     it 'builds getters for each attribute' do
-      user.age.must_equal nil
-      user.birthday.must_equal nil
+      assert_nil user.age
+      assert_nil user.birthday
       user.sizes.must_equal []
     end
 

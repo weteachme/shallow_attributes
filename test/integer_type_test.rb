@@ -20,7 +20,7 @@ describe ShallowAttributes::Type::Integer do
 
     describe 'when value is Nil' do
       it 'returns nil' do
-        type.coerce(nil).must_equal nil
+        assert_nil type.coerce(nil)
       end
     end
 

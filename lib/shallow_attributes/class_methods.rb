@@ -6,6 +6,19 @@ module ShallowAttributes
   #
   # @since 0.1.0
   module ClassMethods
+    # Inject our default values into subclasses.
+    #
+    # @private
+    #
+    # @param [Object] subclass
+    #
+    def inherited(subclass)
+      super
+      if respond_to?(:default_values)
+        subclass.default_values.merge!(default_values)
+      end
+    end
+
     # Returns hash which contain default values for each attribute
     #
     # @private
@@ -14,15 +27,10 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def default_values
-      if superclass.respond_to?(:default_values)
-        @default_values.merge!(superclass.default_values) { |_, v, _| v }
-      else
-        @default_values
-      end
+      @default_values ||= {}
     end
 
     # Returns all class attributes.
-    #
     #
     # @example Create new User instance
     #   class User
@@ -66,8 +74,7 @@ module ShallowAttributes
     def attribute(name, type, options = {})
       options[:default] ||= [] if type == Array
 
-      @default_values ||= {}
-      @default_values[name] = options.delete(:default)
+      default_values[name] = options.delete(:default)
 
       initialize_setter(name, type, options)
       initialize_getter(name)

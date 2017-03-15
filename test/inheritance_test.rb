@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# Base class mixes in ShallowAttributes and defines attributes
 class BaseUser
   include ShallowAttributes
 
@@ -20,16 +21,35 @@ class Admin < BaseUser
   attribute :last_name, String
 end
 
+# Base class mixes in ShallowAttributes, but does not define attributes
+class Base1
+  include ShallowAttributes
+end
+
+class Sub1 < Base1
+  attribute :email, String
+end
+
+# Base class does not mix in ShallowAttributes
+class Base2
+end
+
+class Sub2 < Base2
+  include ShallowAttributes
+
+  attribute :email, String
+end
+
 describe ShallowAttributes do
   describe '::attributes' do
     describe 'for inheritance' do
       it 'returns array of all attributes' do
-        Moderator.attributes.must_equal(%i(rates name role))
+        Moderator.attributes.must_equal(%i(name role rates))
       end
     end
   end
 
-  describe 'with inheritance class' do
+  describe 'with inheritance from class that mixes in ShallowAttributes and defines attributes' do
     let(:params) { { name: 'Anton', role: 'moderator', last_name: 'New', rates: [1, 2, 3] } }
     let(:moderator) { Moderator.new(params) }
     let(:admin) { Admin.new(params) }
@@ -68,6 +88,20 @@ describe ShallowAttributes do
       it 'returns last_name attribute correct' do
         admin.last_name.must_equal 'New'
       end
+    end
+  end
+
+  describe 'with inheritance from class that mixes in ShallowAttributes, but does not define attributes' do
+    it 'returns email attribute correct' do
+      search = Sub1.new(email: 'foo@bar.com')
+      search.email.must_equal 'foo@bar.com'
+    end
+  end
+
+  describe 'with inheritance from class that does not mixin ShallowAttributes' do
+    it 'returns email attribute correct' do
+      search = Sub2.new(email: 'foo@bar.com')
+      search.email.must_equal 'foo@bar.com'
     end
   end
 end

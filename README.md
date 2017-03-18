@@ -333,10 +333,11 @@ user.valid? # => true
 
 ShallowAttributes is [known to work correctly][travis-link] with the following rubies:
 
-* 2.0.0
-* 2.1.8
-* 2.2.4
-* 2.3.0
+* 2.0
+* 2.1
+* 2.2
+* 2.3
+* 2.4
 * jruby-head
 
 Also we run rbx-2 buld too.

@@ -50,11 +50,24 @@ describe ShallowAttributes do
       user.age.must_equal 22
     end
 
-    it 'sets attributes from hash' do
+    it 'sets attributes from symbolized hash' do
       user = MainUser.new(name: 'Anton', age: 22)
 
       user.name.must_equal 'Anton'
       user.age.must_equal 22
+    end
+
+    it 'sets attributes from stringified hash' do
+      user = MainUser.new('name' => 'Anton', 'age' => 22)
+
+      user.name.must_equal 'Anton'
+      user.age.must_equal 22
+    end
+
+    it 'does not mutate the argument' do
+      params = {'name' => 'Anton', 'age' => 22}
+      MainUser.new(params)
+      params.must_equal({'name' => 'Anton', 'age' => 22})
     end
 
     it 'sets object as default value for each attribute' do
@@ -87,8 +100,15 @@ describe ShallowAttributes do
   end
 
   describe '#attributes=' do
-    it 'mass-assignments object attributes' do
+    it 'mass-assignments from symbolized hash' do
       user.attributes = { name: 'Alex' }
+
+      user.name.must_equal 'Alex'
+      user.age.must_equal 22
+    end
+
+    it 'mass-assignments from stringified hash' do
+      user.attributes = { 'name' => 'Alex' }
 
       user.name.must_equal 'Alex'
       user.age.must_equal 22

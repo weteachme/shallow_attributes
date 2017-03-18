@@ -30,7 +30,11 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def initialize(attrs = {})
-      @attributes = attrs.delete_if { |key, _| !default_values.key?(key) }
+      @attributes = {}
+      attrs.each_pair do |key, value|
+        key = key.to_sym
+        @attributes[key] = value if default_values.key?(key)
+      end
       define_attributes
       define_default_attributes
     end

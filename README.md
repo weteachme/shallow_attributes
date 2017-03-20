@@ -1,4 +1,5 @@
 # ShallowAttributes
+
 [![Build Status](https://travis-ci.org/davydovanton/shallow_attributes.svg?branch=master)](https://travis-ci.org/davydovanton/shallow_attributes)
 [![Code Climate](https://codeclimate.com/github/davydovanton/shallow_attributes/badges/gpa.svg)](https://codeclimate.com/github/davydovanton/shallow_attributes)
 [![Coverage Status](https://coveralls.io/repos/github/davydovanton/shallow_attributes/badge.svg?branch=master)](https://coveralls.io/github/davydovanton/shallow_attributes?branch=master)
@@ -14,13 +15,13 @@ or [attrio][attrio-link]. However, the disadvantage of these gems is performance
 of `ShallowAttributes` is to provide a simple solution which is similar to the `Virtus` API, simple, fast,
 understandable and extendable.
 
-This is [the performance benchmark][performance-benchmark] of ShallowAttributes compared to virtus gems.
+This is [the performance benchmark][performance-benchmark] of ShallowAttributes compared to Virtus gems.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-```ruby
+``` ruby
 gem 'shallow_attributes'
 ```
 
@@ -33,7 +34,9 @@ Or install it yourself as:
     $ gem install shallow_attributes
 
 ## Examples
+
 ### Table of contents
+
 * [Using ShallowAttributes with Classes](#using-shallowattributes-with-classes)
 * [Default Values](#default-values)
 * [Embedded Value](#embedded-value)
@@ -41,12 +44,13 @@ Or install it yourself as:
 * [Collection Member Coercions](#collection-member-coercions)
 * [Note about Member Coercions](#important-note-about-member-coercions)
 * [Overriding setters](#overriding-setters)
-* [ActiveModel validation](#activemodel-validation)
+* [ActiveModel compatibility](#activemodel-compatibility)
 
 ### Using ShallowAttributes with Classes
+
 You can create classes extended with Virtus and define attributes:
 
-```ruby
+``` ruby
 class User
   include ShallowAttributes
 
@@ -81,6 +85,31 @@ user.age        # => 21
 
 super_user = SuperUser.new
 user.age = nil  # => 0
+```
+
+ShallowAttributes doesn't make any assumptions about base classes. There is no need to define
+default attributes, or even mix ShallowAttributes into the base class:
+
+``` ruby
+require 'active_model'
+
+class Form
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
+  include ActiveModel::Conversion
+  include ShallowAttributes
+
+  def persisted?
+    false
+  end
+end
+
+class SearchForm < Form
+  attribute :name, String
+end
+
+form = SearchForm.new(name: 'Anton')
+form.name # => "Anton"
 ```
 
 ### Default Values
@@ -260,7 +289,8 @@ user.attributes
 
 ### IMPORTANT note about member coercions
 
-ShallowAttributes performs coercions only when a value is being assigned. If you mutate the value later on using its own interfaces then coercion won't be triggered.
+ShallowAttributes performs coercions only when a value is being assigned. If you mutate the value
+later on using its own interfaces then coercion won't be triggered.
 
 Here's an example:
 
@@ -310,7 +340,52 @@ user = User.new(name: "Godzilla")
 user.name # => 'Can't tell'
 ```
 
-### ActiveModel validation
+### ActiveModel compatibility
+
+ShallowAttributes is fully compatible with ActiveModel.
+
+#### Form object
+
+``` ruby
+require 'active_model'
+
+class SearchForm
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
+  include ActiveModel::Conversion
+  include ShallowAttributes
+
+  attribute :name, String
+  attribute :service_ids, Array, of: Integer
+  attribute :archived, 'Boolean', default: false
+
+  def persisted?
+    false
+  end
+
+  def results
+    # ...
+  end
+end
+
+class SearchesController < ApplicationController
+  def index
+    search_params = params.require(:search_form).permit(...)
+    @search_form = SearchForm.new(search_params)
+  end
+end
+```
+
+``` erb
+<h1>Search</h1>
+<%= form_for @search_form do |f| %>
+  <%= f.text_field :name %>
+  <%= f.collection_check_boxes :service_ids, Service.all, :id, :name %>
+  <%= f.select :archived, [['Archived', true], ['Not Archived', false]] %>
+<% end %>
+```
+
+#### Validations
 
 ``` ruby
 require 'active_model'
@@ -351,7 +426,6 @@ to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
 
 [doc-link]: http://www.rubydoc.info/github/davydovanton/shallow_attributes/master
 [virtus-link]: https://github.com/solnic/virtus

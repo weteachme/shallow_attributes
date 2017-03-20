@@ -1,4 +1,5 @@
 # ShallowAttributes
+
 [![Build Status](https://travis-ci.org/davydovanton/shallow_attributes.svg?branch=master)](https://travis-ci.org/davydovanton/shallow_attributes)
 [![Code Climate](https://codeclimate.com/github/davydovanton/shallow_attributes/badges/gpa.svg)](https://codeclimate.com/github/davydovanton/shallow_attributes)
 [![Coverage Status](https://coveralls.io/repos/github/davydovanton/shallow_attributes/badge.svg?branch=master)](https://coveralls.io/github/davydovanton/shallow_attributes?branch=master)
@@ -14,13 +15,13 @@ or [attrio][attrio-link]. However, the disadvantage of these gems is performance
 of `ShallowAttributes` is to provide a simple solution which is similar to the `Virtus` API, simple, fast,
 understandable and extendable.
 
-This is [the performance benchmark][performance-benchmark] of ShallowAttributes compared to virtus gems.
+This is [the performance benchmark][performance-benchmark] of ShallowAttributes compared to Virtus gems.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-```ruby
+``` ruby
 gem 'shallow_attributes'
 ```
 
@@ -33,7 +34,9 @@ Or install it yourself as:
     $ gem install shallow_attributes
 
 ## Examples
+
 ### Table of contents
+
 * [Using ShallowAttributes with Classes](#using-shallowattributes-with-classes)
 * [Default Values](#default-values)
 * [Embedded Value](#embedded-value)
@@ -44,9 +47,10 @@ Or install it yourself as:
 * [ActiveModel validation](#activemodel-validation)
 
 ### Using ShallowAttributes with Classes
+
 You can create classes extended with Virtus and define attributes:
 
-```ruby
+``` ruby
 class User
   include ShallowAttributes
 
@@ -260,7 +264,8 @@ user.attributes
 
 ### IMPORTANT note about member coercions
 
-ShallowAttributes performs coercions only when a value is being assigned. If you mutate the value later on using its own interfaces then coercion won't be triggered.
+ShallowAttributes performs coercions only when a value is being assigned. If you mutate the value
+later on using its own interfaces then coercion won't be triggered.
 
 Here's an example:
 
@@ -351,7 +356,6 @@ to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
 
 [doc-link]: http://www.rubydoc.info/github/davydovanton/shallow_attributes/master
 [virtus-link]: https://github.com/solnic/virtus

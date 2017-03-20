@@ -44,7 +44,7 @@ Or install it yourself as:
 * [Collection Member Coercions](#collection-member-coercions)
 * [Note about Member Coercions](#important-note-about-member-coercions)
 * [Overriding setters](#overriding-setters)
-* [ActiveModel validation](#activemodel-validation)
+* [ActiveModel compatibility](#activemodel-compatibility)
 
 ### Using ShallowAttributes with Classes
 
@@ -85,6 +85,31 @@ user.age        # => 21
 
 super_user = SuperUser.new
 user.age = nil  # => 0
+```
+
+ShallowAttributes doesn't make any assumptions about base classes. There is no need to define
+default attributes, or even mix ShallowAttributes into the base class:
+
+``` ruby
+require 'active_model'
+
+class Form
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
+  include ActiveModel::Conversion
+  include ShallowAttributes
+
+  def persisted?
+    false
+  end
+end
+
+class SearchForm < Form
+  attribute :name, String
+end
+
+form = SearchForm.new(name: 'Anton')
+form.name # => "Anton"
 ```
 
 ### Default Values
@@ -315,7 +340,52 @@ user = User.new(name: "Godzilla")
 user.name # => 'Can't tell'
 ```
 
-### ActiveModel validation
+### ActiveModel compatibility
+
+ShallowAttributes is fully compatible with ActiveModel.
+
+#### Form object
+
+``` ruby
+require 'active_model'
+
+class SearchForm
+  extend ActiveModel::Naming
+  extend ActiveModel::Translation
+  include ActiveModel::Conversion
+  include ShallowAttributes
+
+  attribute :name, String
+  attribute :service_ids, Array, of: Integer
+  attribute :archived, 'Boolean', default: false
+
+  def persisted?
+    false
+  end
+
+  def results
+    # ...
+  end
+end
+
+class SearchesController < ApplicationController
+  def index
+    search_params = params.require(:search_form).permit(...)
+    @search_form = SearchForm.new(search_params)
+  end
+end
+```
+
+``` erb
+<h1>Search</h1>
+<%= form_for @search_form do |f| %>
+  <%= f.text_field :name %>
+  <%= f.collection_check_boxes :service_ids, Service.all, :id, :name %>
+  <%= f.select :archived, [['Archived', true], ['Not Archived', false]] %>
+<% end %>
+```
+
+#### Validations
 
 ``` ruby
 require 'active_model'

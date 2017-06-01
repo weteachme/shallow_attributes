@@ -32,6 +32,7 @@ describe ShallowAttributes::Type::Array do
         type.coerce([], of: Integer).must_equal []
         type.coerce(['1', '2'], of: Integer).must_equal [1, 2]
         type.coerce([true, false], of: Integer).must_equal [1, 0]
+        type.coerce(['1', '2'], of: 'Integer').must_equal [1, 2]
       end
     end
   end

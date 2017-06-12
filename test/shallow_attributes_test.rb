@@ -100,18 +100,26 @@ describe ShallowAttributes do
   end
 
   describe '#attributes=' do
-    it 'mass-assignments from symbolized hash' do
+    it 'mass-assigns attributes from symbolized hash' do
       user.attributes = { name: 'Alex' }
 
       user.name.must_equal 'Alex'
       user.age.must_equal 22
     end
 
-    it 'mass-assignments from stringified hash' do
+    it 'mass-assigns attributes from stringified hash' do
       user.attributes = { 'name' => 'Alex' }
 
       user.name.must_equal 'Alex'
       user.age.must_equal 22
+    end
+
+    it 'mass-assigns uninitialized attributes from stringified hash' do
+      user = MainUser.new
+      user.age.must_be_nil
+
+      user.attributes = {"age" => "21"}
+      user.age.must_equal 21
     end
   end
 

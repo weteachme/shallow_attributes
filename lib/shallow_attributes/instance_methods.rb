@@ -86,7 +86,9 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def attributes=(attributes)
-      @attributes.merge!(attributes)
+      attributes.each_pair do |key, value|
+        @attributes[key.to_sym] = value
+      end
       define_attributes
     end
 

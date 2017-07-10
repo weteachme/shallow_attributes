@@ -92,7 +92,7 @@ describe ShallowAttributes do
       it 'returns attributes like hash' do
         user.name  = nil
         user.age   = nil
-        user.attributes.must_equal(name: '', age: nil)
+        user.attributes.must_equal(name: nil, age: nil)
       end
     end
   end

@@ -1,6 +1,10 @@
 require 'test_helper'
 require 'dry-types'
 
+if RUBY_ENGINE == 'jruby'
+  JRuby.objectspace = true
+end
+
 module Types
   include Dry::Types.module
 end

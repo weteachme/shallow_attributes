@@ -151,6 +151,8 @@ module ShallowAttributes
     # @since 0.2.0
     def type_casting(type, options)
       if dry_type?(type)
+        # yep, I know that it's terrible line but it was the easily
+        # way to type cast data with dry-types from class method in instance method
         "ObjectSpace._id2ref(#{type.object_id})[value]"
       else
         "ShallowAttributes::Type.coerce(#{type}, value, #{options})"

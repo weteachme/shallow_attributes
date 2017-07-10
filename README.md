@@ -45,6 +45,7 @@ Or install it yourself as:
 * [Note about Member Coercions](#important-note-about-member-coercions)
 * [Overriding setters](#overriding-setters)
 * [ActiveModel compatibility](#activemodel-compatibility)
+* [Dry-types](#dry-types)
 
 ### Using ShallowAttributes with Classes
 
@@ -402,6 +403,26 @@ user = User.new(scream: '')
 user.valid? # => false
 user.scream = 'hello world!'
 user.valid? # => true
+```
+
+### Dry-types
+You can use dry-types objects as a type for your attribute:
+```ruby
+module Types
+  include Dry::Types.module
+end
+
+class User
+  include ShallowAttributes
+
+  attribute :name, Types::Coercible::String
+  attribute :age, Types::Coercible::Int
+  attribute :birthday, DateTime
+end
+
+user = User.new(name: nil, age: 0)
+user.name # => ''
+user.age # => 0
 ```
 
 ## Ruby version support

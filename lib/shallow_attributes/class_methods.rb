@@ -94,12 +94,14 @@ module ShallowAttributes
     #
     # @since 0.1.0
     def initialize_setter(name, type, options)
+      type_class = dry_type?(type) ? type.class : type
+
       module_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{name}=(value)
-          @#{name} = if value.is_a?(#{type}) && !value.is_a?(Array)
+          @#{name} = if value.is_a?(#{type_class}) && !value.is_a?(Array)
             value
           else
-            ShallowAttributes::Type.coerce(#{type}, value, #{options})
+            #{type_casting(type, options)}
           end
 
           @attributes[:#{name}] = @#{name}
@@ -118,6 +120,43 @@ module ShallowAttributes
     # @since 0.1.0
     def initialize_getter(name)
       attr_reader name
+    end
+
+    private
+
+    DRY_TYPE_CLASS = 'Dry::Types'.freeze
+
+    # Check type with dry-type
+    #
+    # @private
+    #
+    # @param [Class] class of type
+    #
+    # @return [Bool]
+    #
+    # @since 0.2.0
+    def dry_type?(type)
+      type.class.name.match(DRY_TYPE_CLASS)
+    end
+
+    # Returns string for type casting
+    #
+    # @private
+    #
+    # @param [Class] type the class of type
+    # @param [Hash] options the options
+    #
+    # @return [String]
+    #
+    # @since 0.2.0
+    def type_casting(type, options)
+      if dry_type?(type)
+        # yep, I know that it's terrible line but it was the easily
+        # way to type cast data with dry-types from class method in instance method
+        "ObjectSpace._id2ref(#{type.object_id})[value]"
+      else
+        "ShallowAttributes::Type.coerce(#{type}, value, #{options})"
+      end
     end
   end
 end

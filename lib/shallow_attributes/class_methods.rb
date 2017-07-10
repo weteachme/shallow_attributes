@@ -124,7 +124,7 @@ module ShallowAttributes
 
     private
 
-    DRY_TYPE_CLASS = 'Dry::Types::Definition'
+    DRY_TYPE_CLASS = 'Dry::Types'.freeze
 
     # Check type with dry-type
     #
@@ -136,7 +136,7 @@ module ShallowAttributes
     #
     # @since 0.2.0
     def dry_type?(type)
-      type.class.name == DRY_TYPE_CLASS
+      type.class.name.match(DRY_TYPE_CLASS)
     end
 
     # Returns string for type casting
@@ -150,8 +150,8 @@ module ShallowAttributes
     #
     # @since 0.2.0
     def type_casting(type, options)
-      if type.class.name == 'Dry::Types::Definition'
-        "#{type.class}.new(#{type.primitive})[value]"
+      if dry_type?(type)
+        "ObjectSpace._id2ref(#{type.object_id})[value]"
       else
         "ShallowAttributes::Type.coerce(#{type}, value, #{options})"
       end

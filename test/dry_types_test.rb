@@ -8,8 +8,8 @@ end
 class MainDryUser
   include ShallowAttributes
 
-  attribute :name, Types::String
-  attribute :age, Integer
+  attribute :name, Types::Coercible::String
+  attribute :age, Types::Coercible::Int
   attribute :birthday, DateTime
 end
 
@@ -91,8 +91,8 @@ describe ShallowAttributes do
     describe 'when value is nil' do
       it 'returns attributes like hash' do
         user.name  = nil
-        user.age   = nil
-        user.attributes.must_equal(name: nil, age: nil)
+        user.age   = 0
+        user.attributes.must_equal(name: '', age: 0)
       end
     end
   end

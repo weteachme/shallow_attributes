@@ -30,6 +30,18 @@ module ShallowAttributes
       @default_values ||= {}
     end
 
+    # Returns hash with mandatory attributes
+    #
+    # @private
+    #
+    # @return [Hash] hash with mandatory attributes
+    #
+    # @since 0.10.0
+
+    def mandatory_attributes
+      @mandatory_attributes ||= {}
+    end
+
     # Returns all class attributes.
     #
     # @example Create new User instance
@@ -75,6 +87,7 @@ module ShallowAttributes
       options[:default] ||= [] if type == Array
 
       default_values[name] = options.delete(:default)
+      mandatory_attributes[name] = options.delete(:present)
 
       initialize_setter(name, type, options)
       initialize_getter(name)

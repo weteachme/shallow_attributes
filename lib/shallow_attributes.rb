@@ -9,6 +9,11 @@ require 'shallow_attributes/version'
 module ShallowAttributes
   include InstanceMethods
 
+  # Error class for mandatory arguments that were not provided
+  #
+  # @since 0.10.0
+  class MissingAttributeError < TypeError; end
+
   # Including ShallowAttributes class methods to specific class
   #
   # @private

@@ -20,7 +20,7 @@ module ShallowAttributes
   #
   # @param [Class] base the class containing class methods
   #
-  # @return [Class] class for incluting ShallowAttributes gem
+  # @return [Class] class for including ShallowAttributes gem
   #
   # @since 0.1.0
   def self.included(base)

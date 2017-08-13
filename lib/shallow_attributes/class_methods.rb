@@ -19,7 +19,7 @@ module ShallowAttributes
       end
     end
 
-    # Returns hash which contain default values for each attribute
+    # Returns hash that contains default values for each attribute
     #
     # @private
     #
@@ -30,14 +30,13 @@ module ShallowAttributes
       @default_values ||= {}
     end
 
-    # Returns hash with mandatory attributes
+    # Returns hash that contains mandatory attributes
     #
     # @private
     #
     # @return [Hash] hash with mandatory attributes
     #
     # @since 0.10.0
-
     def mandatory_attributes
       @mandatory_attributes ||= {}
     end
@@ -70,6 +69,7 @@ module ShallowAttributes
     # @option options [Object] :default default value for attribute
     # @option options [Class] :of class of array elems
     # @option options [boolean] :allow_nil cast `nil` to integer or float
+    # @option options [boolean] :present raise error if attribute was not provided
     #
     # @example Create new User instance
     #   class User
@@ -143,7 +143,7 @@ module ShallowAttributes
     #
     # @private
     #
-    # @param [Class] class of type
+    # @param [Class] type the class of type
     #
     # @return [Bool]
     #

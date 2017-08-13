@@ -18,7 +18,7 @@ module ShallowAttributes
       #   ShallowAttributes::Type::Array.new.coerce([1, 2], String)
       #     # => ['1', '2']
       #
-      # @raise [InvalidValueError] if values is not Array
+      # @raise [InvalidValueError] if value is not an Array
       #
       # @return [Array]
       #

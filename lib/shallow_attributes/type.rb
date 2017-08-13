@@ -7,11 +7,11 @@ require 'shallow_attributes/type/string'
 require 'shallow_attributes/type/time'
 
 module ShallowAttributes
-  # Namespace for standart type classes
+  # Namespace for standard type classes
   #
   # @since 0.1.0
   module Type
-    # Error class for ivalid value types
+    # Error class for invalid value types
     #
     # @since 0.1.0
     class InvalidValueError < TypeError
@@ -37,7 +37,7 @@ module ShallowAttributes
       # @private
       #
       # @param [Class] type the type class object
-      # @param [Object] value the value that should be submit to the necessary type
+      # @param [Object] value the value that should be coerced to the necessary type
       # @param [Hash] options the options to create a message with.
       # @option options [String] :of The type of array
       # @option options [boolean] :allow_nil cast `nil` to integer or float
@@ -63,7 +63,7 @@ module ShallowAttributes
       #
       # @private
       #
-      # @param [Class] type the type class object
+      # @param [Class] klass the type class object
       #
       # @example Returns Sting type class
       #   ShallowAttributes::Type.instance_for(String)

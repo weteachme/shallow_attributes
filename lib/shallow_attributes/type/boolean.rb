@@ -25,7 +25,7 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
-      # @param [Hash] option
+      # @param [Hash] _options
       #
       # @example Convert integer to boolean value
       #   ShallowAttributes::Type::Boolean.new.coerce(1)
@@ -34,7 +34,7 @@ module ShallowAttributes
       #   ShallowAttributes::Type::Boolean.new.coerce(0)
       #     # => false
       #
-      # @raise [InvalidValueError] if values is not included in true and false arrays
+      # @raise [InvalidValueError] if value is not included in true and false arrays
       #
       # @return [boolean]
       #

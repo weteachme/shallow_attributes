@@ -1,6 +1,6 @@
 module ShallowAttributes
   module Type
-    # This class needs for cange object type to Float.
+    # This class is needed to change object type to Float.
     #
     # @abstract
     #
@@ -11,14 +11,14 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
-      # @param [Hash] option
+      # @param [Hash] options
       # @option options [boolean] :allow_nil cast `nil` to integer or float
       #
       # @example Convert string to float value
       #   ShallowAttributes::Type::Float.new.coerce('2001')
       #     # => 2001.0
       #
-      # @raise [InvalidValueError] if values is invalid
+      # @raise [InvalidValueError] if value is invalid
       #
       # @return [Float]
       #

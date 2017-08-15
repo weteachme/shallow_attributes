@@ -39,6 +39,7 @@ Or install it yourself as:
 
 * [Using ShallowAttributes with Classes](#using-shallowattributes-with-classes)
 * [Default Values](#default-values)
+* [Mandatory Attributes](#mandatory-attributes)
 * [Embedded Value](#embedded-value)
 * [Custom Coercions](#custom-coercions)
 * [Collection Member Coercions](#collection-member-coercions)

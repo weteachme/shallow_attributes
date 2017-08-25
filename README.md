@@ -39,6 +39,7 @@ Or install it yourself as:
 
 * [Using ShallowAttributes with Classes](#using-shallowattributes-with-classes)
 * [Default Values](#default-values)
+* [Mandatory Attributes](#mandatory-attributes)
 * [Embedded Value](#embedded-value)
 * [Custom Coercions](#custom-coercions)
 * [Collection Member Coercions](#collection-member-coercions)
@@ -149,6 +150,22 @@ page.views                    # => 10
 page.reset_attribute(:views)  # => 0
 page.views                    # => 0
 ```
+
+### Mandatory attributes
+You can provide `present: true` option for any attribute that will prevent class from initialization
+if this attribute was not provided:
+
+``` ruby
+class CreditCard
+  include ShallowAttributes
+  attribute :number, Integer, present: true
+  attribute :owner, String, present: true
+end
+
+card = CreditCard.new(number: 1239342)
+# => ShallowAttributes::MissingAttributeError: Mandatory attribute "owner" was not provided
+```
+
 
 ### Embedded Value
 

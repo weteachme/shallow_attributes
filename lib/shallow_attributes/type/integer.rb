@@ -1,6 +1,6 @@
 module ShallowAttributes
   module Type
-    # This class cange object to Integer.
+    # This class changes object to Integer.
     #
     # @abstract
     #
@@ -11,14 +11,14 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
-      # @param [Hash] option
+      # @param [Hash] options
       # @option options [boolean] :allow_nil cast `nil` to integer or float
       #
       # @example Convert sting to integer value
       #   ShallowAttributes::Type::Integer.new.coerce('2001')
       #     # => 2001
       #
-      # @raise [InvalidValueError] if values is invalid
+      # @raise [InvalidValueError] if value is invalid
       #
       # @return [Integer]
       #

@@ -6,7 +6,7 @@ module ShallowAttributes
   #
   # @since 0.1.0
   module InstanceMethods
-    # Lambda object for gettring attributes hash for specific
+    # Lambda object for getting attributes hash for a specific
     # value object.
     #
     # @private
@@ -14,7 +14,7 @@ module ShallowAttributes
     # @since 0.1.0
     TO_H_PROC = ->(value) { value.respond_to?(:to_hash) ? value.to_hash : value }
 
-    # Initialize instance object with specific attributes
+    # Initialize an instance object with specific attributes
     #
     # @param [Hash] attrs the attributes contained in the class
     #
@@ -37,11 +37,12 @@ module ShallowAttributes
       end
       define_attributes
       define_default_attributes
+      define_mandatory_attributes
     end
 
     # Returns hash of object attributes
     #
-    # @example Returns all user attributs
+    # @example Returns all user attributes
     #   class User
     #     include ShallowAttributes
     #     attribute :name, String
@@ -68,7 +69,7 @@ module ShallowAttributes
     # @since 0.1.0
     alias_method :to_hash, :attributes
 
-    # Mass-assignment attribut values
+    # Attribute values mass-assignment
     #
     # @param [Hash] attributes the attributes which will be assignment
     #
@@ -82,7 +83,7 @@ module ShallowAttributes
     #   user.attributes = { name: "Ben" }
     #   user.attributes # => { name: "Ben" }
     #
-    # @return [Hash] attibutes hash
+    # @return [Hash] attributes hash
     #
     # @since 0.1.0
     def attributes=(attributes)
@@ -92,14 +93,14 @@ module ShallowAttributes
       define_attributes
     end
 
-    # Reser specific attribute to defaul value.
+    # Reset specific attribute to default value.
     #
-    # @param [Symbol] attribute the attribute which will be resete
+    # @param [Symbol] attribute the attribute which will be reset
     #
-    # @example Reset name valus
+    # @example Reset name value
     #   class User
     #     include ShallowAttributes
-    #     attribute :name, String, defauil: 'Ben'
+    #     attribute :name, String, default: 'Ben'
     #   end
     #
     #   user = User.new(name: 'Anton')
@@ -117,13 +118,13 @@ module ShallowAttributes
     #
     # @private
     #
-    # @param [Hash] values the new attributes for current object
-    # @param [Hash] options
+    # @param [Hash] value the new attributes for current object
+    # @param [Hash] _options
     #
     # @example Use embedded values
     #   class User
     #     include ShallowAttributes
-    #     attribute :name, String, defauil: 'Ben'
+    #     attribute :name, String, default: 'Ben'
     #   end
     #
     #   class Post
@@ -142,14 +143,14 @@ module ShallowAttributes
       self
     end
 
-    # Equalate two value objects
+    # Compare values of two objects
     #
     # @param [Object] object the other object
     #
-    # @example Equalate two value objects
+    # @example Compare two value objects
     #   class User
     #     include ShallowAttributes
-    #     attribute :name, String, defauil: 'Ben'
+    #     attribute :name, String, default: 'Ben'
     #   end
     #
     #   user1 = User.new(name: 'Anton')
@@ -165,10 +166,10 @@ module ShallowAttributes
 
     # Inspect instance object
     #
-    # @example Equalate two value objects
+    # @example Inspect the object
     #   class User
     #     include ShallowAttributes
-    #     attribute :name, String, defauil: 'Ben'
+    #     attribute :name, String, default: 'Ben'
     #   end
     #
     #   user = User.new(name: 'Anton')
@@ -181,9 +182,9 @@ module ShallowAttributes
       "#<#{self.class}#{attributes.map{ |k, v| " #{k}=#{v.inspect}" }.join}>"
     end
 
-  private
+    private
 
-    # Defene default value for attributes.
+    # Define default values for attributes.
     #
     # @private
     #
@@ -197,7 +198,24 @@ module ShallowAttributes
       end
     end
 
-    # Defene attributes from `@attributes` instance value.
+    # Define mandatory attributes for object and raise exception
+    # if they were not provided
+    #
+    # @private
+    #
+    # @raise [MissingAttributeError] if attribute was not provided
+    #
+    # @return the object
+    #
+    # @since 0.10.0
+    def define_mandatory_attributes
+      mandatory_attributes.each do |key, value|
+        next unless @attributes[key].nil? && value
+        raise ShallowAttributes::MissingAttributeError, %(Mandatory attribute "#{key}" was not provided)
+      end
+    end
+
+    # Define attributes from `@attributes` instance value.
     #
     # @private
     #
@@ -210,13 +228,13 @@ module ShallowAttributes
       end
     end
 
-    # Retrns default value for specific attribute. Defaul values hash
-    # takes from class getter `default_values`.
+    # Returns default value for specific attribute. Default values hash
+    # is taken from class getter `default_values`.
     #
     # @private
     #
     # @return [nil] if default value not defined
-    # @return [Object] if default value defined
+    # @return [Object] if default value is defined
     #
     # @since 0.1.0
     def default_value_for(attribute)
@@ -241,6 +259,17 @@ module ShallowAttributes
     # @since 0.1.0
     def default_values
       @default_values ||= self.class.default_values
+    end
+
+    # Returns hash of mandatory class attributes
+    #
+    # @private
+    #
+    # @return [Hash]
+    #
+    # @since 0.10.0
+    def mandatory_attributes
+      @mandatory_attributes ||= self.class.mandatory_attributes
     end
   end
 end

@@ -9,13 +9,18 @@ require 'shallow_attributes/version'
 module ShallowAttributes
   include InstanceMethods
 
+  # Error class for mandatory arguments that were not provided
+  #
+  # @since 0.10.0
+  class MissingAttributeError < TypeError; end
+
   # Including ShallowAttributes class methods to specific class
   #
   # @private
   #
   # @param [Class] base the class containing class methods
   #
-  # @return [Class] class for incluting ShallowAttributes gem
+  # @return [Class] class for including ShallowAttributes gem
   #
   # @since 0.1.0
   def self.included(base)

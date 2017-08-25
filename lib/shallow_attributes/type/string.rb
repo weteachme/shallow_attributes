@@ -11,9 +11,9 @@ module ShallowAttributes
       # @private
       #
       # @param [Object] value
-      # @param [Hash] option
+      # @param [Hash] _options
       #
-      # @example Convert intger to string value
+      # @example Convert integer to string value
       #   ShallowAttributes::Type::String.new.coerce(2001)
       #     # => '2001'
       #

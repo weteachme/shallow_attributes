@@ -134,6 +134,8 @@ class Page
   # default from a method name as symbol
   attribute :editor_title, String,  default: :default_editor_title
 
+  private
+
   def default_editor_title
     published ? title : "UNPUBLISHED: #{title}"
   end

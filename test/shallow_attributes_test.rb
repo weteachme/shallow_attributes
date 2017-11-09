@@ -13,6 +13,7 @@ class MainUser
   attribute :full_name, String, default: -> (user, attribute) { "#{user.name} #{user.last_name}" }
   attribute :age, Integer
   attribute :birthday, DateTime
+  attribute :color, String, default: :default_color
 
   attribute :friends_count, Integer, default: 0
   attribute :sizes, Array, of: Integer
@@ -22,6 +23,12 @@ class MainUser
   def default_last_name
     'Affleck'
   end
+
+  private
+
+  def default_color
+    'Pink'
+  end
 end
 
 describe ShallowAttributes do
@@ -29,7 +36,7 @@ describe ShallowAttributes do
 
   describe '::attributes' do
     it 'returns class attributes array' do
-      MainUser.attributes.must_equal(%i(name last_name full_name age birthday friends_count sizes admin))
+      MainUser.attributes.must_equal(%i(name last_name full_name age birthday color friends_count sizes admin))
     end
   end
 
@@ -125,7 +132,7 @@ describe ShallowAttributes do
 
   describe '#attributes' do
     it 'returns attributes like hash' do
-      user.attributes.must_equal(name: 'Anton', age: 22, last_name: "Affleck", full_name: "Anton Affleck", friends_count: 0, sizes: [], admin: false)
+      user.attributes.must_equal(name: 'Anton', age: 22, last_name: "Affleck", full_name: "Anton Affleck", color: "Pink", friends_count: 0, sizes: [], admin: false)
     end
 
     describe 'when value is nil' do
@@ -133,7 +140,7 @@ describe ShallowAttributes do
         user.name  = nil
         user.age   = nil
         user.admin = nil
-        user.attributes.must_equal(name: '', age: nil, last_name: "Affleck", full_name: "Anton Affleck", friends_count: 0, sizes: [], admin: false)
+        user.attributes.must_equal(name: '', age: nil, last_name: "Affleck", full_name: "Anton Affleck", color: "Pink", friends_count: 0, sizes: [], admin: false)
       end
     end
   end

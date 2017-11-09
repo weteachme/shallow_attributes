@@ -244,7 +244,7 @@ module ShallowAttributes
       when Proc
         value.call(self, attribute)
       when Symbol, String
-        self.class.method_defined?(value) ? send(value) : value
+        respond_to?(value, true) ? send(value) : value
       else
         value
       end

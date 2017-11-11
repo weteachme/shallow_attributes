@@ -1,3 +1,5 @@
+require 'date'
+
 module ShallowAttributes
   module Type
     # Abstract class for typecast object to DateTime type.

@@ -8,3 +8,4 @@ if !ENV['TRAVIS']
 end
 
 gem 'coveralls', require: false
+gem 'json', '1.8.5'

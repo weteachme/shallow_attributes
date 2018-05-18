@@ -15,7 +15,8 @@ or [attrio][attrio-link]. However, the disadvantage of these gems is performance
 of `ShallowAttributes` is to provide a simple solution which is similar to the `Virtus` API, simple, fast,
 understandable and extendable.
 
-This is [the performance benchmark][performance-benchmark] of ShallowAttributes compared to Virtus gems.
+* This is [the performance benchmark][performance-benchmark] of ShallowAttributes compared to Virtus gems.
+* [Default ruby struct, dry-struct, virtus and ShallowAttributes ips and memory benchmarks](https://gist.github.com/IvanShamatov/94e78ca52f04f20c6085651345dbdfda)
 
 ## Installation
 

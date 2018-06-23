@@ -58,7 +58,7 @@ module ShallowAttributes
       hash = {}
       @attributes.map do |key, value|
         hash[key] =
-          value.is_a?(Array) ? value.map!(&TO_H_PROC) : TO_H_PROC.call(value)
+          value.is_a?(Array) ? value.map(&TO_H_PROC) : TO_H_PROC.call(value)
       end
       hash
     end

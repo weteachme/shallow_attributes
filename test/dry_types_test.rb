@@ -13,7 +13,7 @@ class MainDryUser
   include ShallowAttributes
 
   attribute :name, Types::Coercible::String
-  attribute :age, Types::Coercible::Int
+  attribute :age, Types::Coercible::Integer
   attribute :birthday, DateTime
 end
 

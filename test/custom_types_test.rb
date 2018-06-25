@@ -25,30 +25,36 @@ end
 
 describe ShallowAttributes do
   describe 'with custom types' do
-    it 'allows embedded values' do
-      person = Person.new(address: {
+    let(:person) do
+      Person.new(address: {
         street: 'Street 1/2', city: {
           name: 'NYC'
         }
       })
+    end
 
-      person.address.zipcode.must_equal "111111"
-      person.address.street.must_equal "Street 1/2"
+    it 'allows embedded values' do
+      person.address.zipcode.must_equal '111111'
+      person.address.street.must_equal 'Street 1/2'
       person.address.city.size.must_equal 9000
-      person.address.city.name.must_equal "NYC"
+      person.address.city.name.must_equal 'NYC'
     end
 
     it 'returns normal hash' do
-      person = Person.new(address: {
-        street: 'Street 1/2', city: {
-          name: 'NYC'
-        }
-      })
-
-      person.address.zipcode.must_equal "111111"
-      person.address.street.must_equal "Street 1/2"
+      person.address.zipcode.must_equal '111111'
+      person.address.street.must_equal 'Street 1/2'
       person.address.city.size.must_equal 9000
-      person.address.city.name.must_equal "NYC"
+      person.address.city.name.must_equal 'NYC'
+    end
+
+    it 'builds the custom types with the correct class' do
+      person.address.must_be_instance_of Address
+      person.address.city.must_be_instance_of City
+    end
+
+    it 'does not change the attribute type after call the method #attributes' do
+      person.attributes
+      person.address.must_be_instance_of Address
     end
 
     describe 'when one of attribute is array' do
@@ -87,6 +93,16 @@ describe ShallowAttributes do
 
         person.addresses[1].city.name = 'Spb'
         person.addresses[1].city.name.must_equal 'Spb'
+      end
+
+      it 'builds the custom types with the correct class' do
+        person.addresses[0].must_be_instance_of Address
+        person.addresses[0].city.must_be_instance_of City
+      end
+
+      it 'does not change the attribute type after call the method #attributes' do
+        person.attributes
+        person.addresses[0].must_be_instance_of Address
       end
 
       describe '#attributes' do

@@ -22,7 +22,7 @@ module ShallowAttributes
       # @since 0.1.0
       def coerce(value, _options = {})
         case value
-        when nil then options[:allow_nil] ? '' : nil
+        when nil then options[:allow_nil] ? nil : ''
         when ::Array then value.join
         when ::Hash, ::Class then error(value)
         else

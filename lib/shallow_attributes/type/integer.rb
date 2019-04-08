@@ -25,7 +25,7 @@ module ShallowAttributes
       # @since 0.1.0
       def coerce(value, options = {})
         case value
-        when nil then options[:allow_nil] ? 0 : nil
+        when nil then options[:allow_nil] ? nil : 0
         when ::TrueClass then 1
         when ::FalseClass then 0
         else

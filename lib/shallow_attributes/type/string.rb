@@ -20,7 +20,7 @@ module ShallowAttributes
       # @return [Sting]
       #
       # @since 0.1.0
-      def coerce(value, _options = {})
+      def coerce(value, options = {})
         case value
         when nil then options[:allow_nil] ? nil : ''
         when ::Array then value.join

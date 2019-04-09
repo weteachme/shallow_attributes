@@ -140,7 +140,7 @@ describe ShallowAttributes do
         user.name  = nil
         user.age   = nil
         user.admin = nil
-        user.attributes.must_equal(name: '', age: nil, last_name: "Affleck", full_name: "Anton Affleck", color: "Pink", friends_count: 0, sizes: [], admin: false)
+        user.attributes.must_equal(name: '', age: 0, last_name: "Affleck", full_name: "Anton Affleck", color: "Pink", friends_count: 0, sizes: [], admin: false)
       end
     end
   end

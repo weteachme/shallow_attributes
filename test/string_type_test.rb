@@ -30,6 +30,12 @@ describe ShallowAttributes::Type::String do
       end
     end
 
+    describe 'when allow_nil is true' do
+      it 'returns integer' do
+        assert_nil type.coerce(nil, allow_nil: true)
+      end
+    end
+
     describe 'when value is TrueClass' do
       it 'returns string' do
         type.coerce(true).must_equal 'true'

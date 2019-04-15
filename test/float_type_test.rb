@@ -21,13 +21,13 @@ describe ShallowAttributes::Type::Float do
 
     describe 'when value is Nil' do
       it 'returns nil' do
-        assert_nil type.coerce(nil)
+        type.coerce(nil).must_equal 0
       end
     end
 
     describe 'when allow_nil is true' do
       it 'returns float' do
-        type.coerce(nil, allow_nil: true).must_equal 0.0
+        assert_nil type.coerce(nil, allow_nil: true)
       end
     end
 

@@ -50,6 +50,12 @@ describe ShallowAttributes::Type::Time do
       end
     end
 
+    describe 'when strict is false' do
+      it 'returns nil' do
+        assert_nil type.coerce(nil, strict: false)
+      end
+    end
+
     describe 'when value is TrueClass' do
       it 'returns InvalidValueError' do
         err = -> { type.coerce(true) }.must_raise ShallowAttributes::Type::InvalidValueError

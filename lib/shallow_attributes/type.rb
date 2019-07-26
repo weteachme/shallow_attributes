@@ -5,6 +5,7 @@ require 'shallow_attributes/type/float'
 require 'shallow_attributes/type/integer'
 require 'shallow_attributes/type/string'
 require 'shallow_attributes/type/time'
+require 'shallow_attributes/type/date'
 
 module ShallowAttributes
   # Namespace for standard type classes
@@ -28,7 +29,8 @@ module ShallowAttributes
       ::Float    => ShallowAttributes::Type::Float.new,
       ::Integer  => ShallowAttributes::Type::Integer.new,
       ::String   => ShallowAttributes::Type::String.new,
-      ::Time     => ShallowAttributes::Type::Time.new
+      ::Time     => ShallowAttributes::Type::Time.new,
+      ::Date     => ShallowAttributes::Type::Date.new
     }.freeze
 
     class << self

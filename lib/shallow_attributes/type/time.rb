@@ -22,7 +22,7 @@ module ShallowAttributes
       # @return [Time]
       #
       # @since 0.1.0
-      def coerce(value, _options = {})
+      def coerce(value, options = {})
         case value
         when ::Time then value
         when ::Integer then ::Time.at(value)
@@ -30,7 +30,11 @@ module ShallowAttributes
           ::Time.parse(value.to_s)
         end
       rescue
-        raise ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{value}" for type "Time")
+        if options.fetch(:strict, true)
+          raise ShallowAttributes::Type::InvalidValueError, %(Invalid value "#{value}" for type "Time")
+        else
+          nil
+        end
       end
     end
   end

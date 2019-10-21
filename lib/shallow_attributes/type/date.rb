@@ -27,6 +27,7 @@ module ShallowAttributes
         when ::DateTime, ::Time then value.to_date
         when ::Date then value
         else
+          # TODO: ::Date.parse(Class.new.to_s) valid call and will create strange Data object
           ::Date.parse(value.to_s)
         end
       rescue

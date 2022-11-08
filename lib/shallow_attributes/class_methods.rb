@@ -111,7 +111,7 @@ module ShallowAttributes
 
       module_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{name}=(value)
-          @#{name} = if value.is_a?(#{type_class}) && !value.is_a?(Array)
+          @#{name} = if value.is_a?(#{type_class})
             value
           else
             #{type_casting(type, options)}

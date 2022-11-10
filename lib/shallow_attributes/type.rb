@@ -1,4 +1,6 @@
 require 'shallow_attributes/type/array'
+require 'shallow_attributes/type/hash'
+require 'shallow_attributes/type/object'
 require 'shallow_attributes/type/boolean'
 require 'shallow_attributes/type/date_time'
 require 'shallow_attributes/type/float'
@@ -25,6 +27,8 @@ module ShallowAttributes
     # @since 0.1.0
     DEFAULT_TYPE_OBJECTS = {
       ::Array    => ShallowAttributes::Type::Array.new,
+      ::Hash    => ShallowAttributes::Type::Hash.new,
+      ::Object    => ShallowAttributes::Type::Object.new,
       ::DateTime => ShallowAttributes::Type::DateTime.new,
       ::Float    => ShallowAttributes::Type::Float.new,
       ::Integer  => ShallowAttributes::Type::Integer.new,

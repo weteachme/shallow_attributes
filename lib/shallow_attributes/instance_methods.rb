@@ -56,6 +56,10 @@ module ShallowAttributes
     # @since 0.1.0
     def attributes
       hash = {}
+      default_values.each do |key, value|
+        hash[key] =
+          value.is_a?(Array) ? value.map(&TO_H_PROC) : TO_H_PROC.call(value)
+      end
       @attributes.map do |key, value|
         hash[key] =
           value.is_a?(Array) ? value.map(&TO_H_PROC) : TO_H_PROC.call(value)

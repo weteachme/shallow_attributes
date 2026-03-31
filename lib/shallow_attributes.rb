@@ -1,5 +1,15 @@
+require 'logger'
 require 'shallow_attributes/class_methods'
 require 'shallow_attributes/instance_methods'
+
+# Boolean class for working with bool values - must be defined before type.rb
+# In Ruby 3.4+, there's no built-in Boolean class
+#
+# @private
+#
+# @since 0.1.0
+class Boolean; end
+
 require 'shallow_attributes/type'
 require 'shallow_attributes/version'
 
@@ -27,10 +37,3 @@ module ShallowAttributes
     base.extend(ClassMethods)
   end
 end
-
-# Boolean class for working with bool values
-#
-# @private
-#
-# @since 0.1.0
-class Boolean; end

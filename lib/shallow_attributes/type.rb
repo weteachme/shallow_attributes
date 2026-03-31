@@ -29,6 +29,7 @@ module ShallowAttributes
       ::Array    => ShallowAttributes::Type::Array.new,
       ::Hash    => ShallowAttributes::Type::Hash.new,
       ::Object    => ShallowAttributes::Type::Object.new,
+      ::Boolean  => ShallowAttributes::Type::Boolean.new,
       ::DateTime => ShallowAttributes::Type::DateTime.new,
       ::Float    => ShallowAttributes::Type::Float.new,
       ::Integer  => ShallowAttributes::Type::Integer.new,

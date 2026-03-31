@@ -109,9 +109,23 @@ module ShallowAttributes
     def initialize_setter(name, type, options)
       type_class = dry_type?(type) ? type.class : type
 
+      is_boolean_type = type == Boolean || type == ::Boolean
+
+      type_check = if is_boolean_type
+        '(value.is_a?(TrueClass) || value.is_a?(FalseClass))'
+      else
+        "value.is_a?(#{type_class})"
+      end
+
+      ar_check = if defined?(ActiveRecord) && defined?(ActiveRecord::Associations::CollectionProxy)
+        ' || value.is_a?(ActiveRecord::Associations::CollectionProxy)'
+      else
+        ''
+      end
+
       module_eval <<-EOS, __FILE__, __LINE__ + 1
         def #{name}=(value)
-          @#{name} = if value.nil? || value.is_a?(#{type_class}) || value.is_a?(ActiveRecord::Associations::CollectionProxy)
+          @#{name} = if value.nil? || #{type_check}#{ar_check}
             value
           else
             #{type_casting(type, options)}

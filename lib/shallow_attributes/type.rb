@@ -25,10 +25,12 @@ module ShallowAttributes
     # @private
     #
     # @since 0.1.0
+    PASSTHROUGH_TYPE = Object.new.tap { |o| def o.coerce(v, _ = {}); v; end }
+
     DEFAULT_TYPE_OBJECTS = {
       ::Array    => ShallowAttributes::Type::Array.new,
-      ::Hash    => ShallowAttributes::Type::Hash.new,
-      ::Object    => ShallowAttributes::Type::Object.new,
+      ::Hash     => ShallowAttributes::Type::Hash.new,
+      ::Object   => ShallowAttributes::Type::Object.new,
       ::Boolean  => ShallowAttributes::Type::Boolean.new,
       ::DateTime => ShallowAttributes::Type::DateTime.new,
       ::Float    => ShallowAttributes::Type::Float.new,
@@ -84,7 +86,11 @@ module ShallowAttributes
       #
       # @since 0.1.0
       def type_instance(klass)
-        DEFAULT_TYPE_OBJECTS[klass] || ShallowAttributes::Type.const_get(klass.name).new
+        DEFAULT_TYPE_OBJECTS[klass] || begin
+          ShallowAttributes::Type.const_get(klass.name).new
+        rescue NameError
+          PASSTHROUGH_TYPE
+        end
       end
     end
   end

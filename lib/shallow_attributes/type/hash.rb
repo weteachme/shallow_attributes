@@ -5,7 +5,7 @@ module ShallowAttributes
     # @abstract
     #
     # @since 0.1.0
-    class Object
+    class Hash
       # Convert value to Array type
       #
       # @private

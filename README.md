@@ -454,6 +454,10 @@ ShallowAttributes is [known to work correctly][travis-link] with the following r
 * 2.2
 * 2.3
 * 2.4
+* 3.0
+* 3.1
+* 3.2
+* 3.3
 * jruby-head
 
 Also we run rbx-2 buld too.

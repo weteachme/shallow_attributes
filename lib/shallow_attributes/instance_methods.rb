@@ -248,7 +248,12 @@ module ShallowAttributes
       when Proc
         value.call(self, attribute)
       when Symbol, String
-        respond_to?(value, true) ? send(value) : value
+        respond_to?(value, true) ? send(value) : value.dup
+      when Array, Hash
+        # A literal default is built once when the class loads. Hand each
+        # instance its own copy, or appending to one instance's array shows
+        # up in every other instance for the life of the process.
+        value.dup
       else
         value
       end

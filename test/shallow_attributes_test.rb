@@ -31,6 +31,15 @@ class MainUser
   end
 end
 
+class MutableDefaults
+  include ShallowAttributes
+
+  attribute :tags, Array, default: []
+  attribute :untyped_list, Array
+  attribute :meta, Hash, default: {}
+  attribute :label, String, default: 'plain'
+end
+
 describe ShallowAttributes do
   let(:user) { MainUser.new(name: 'Anton', age: 22) }
 
@@ -89,6 +98,26 @@ describe ShallowAttributes do
 
     it 'sets lambda as default value for each attribute' do
       user.full_name.must_equal 'Ben Affleck'
+    end
+
+    describe 'with a mutable default' do
+      it 'gives each instance its own copy' do
+        first = MutableDefaults.new
+        first.tags << 'leaked'
+        first.meta[:leaked] = true
+        first.label << ' leaked'
+
+        second = MutableDefaults.new
+        second.tags.must_equal []
+        second.untyped_list.must_equal []
+        second.meta.must_equal({})
+        second.label.must_equal 'plain'
+      end
+
+      it 'does not share the implicit Array default' do
+        MutableDefaults.new.untyped_list << 'leaked'
+        MutableDefaults.new.untyped_list.must_equal []
+      end
     end
 
     describe 'with array type' do
